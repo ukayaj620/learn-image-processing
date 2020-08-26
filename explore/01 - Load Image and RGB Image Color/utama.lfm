@@ -93,6 +93,7 @@ object FormUtama: TFormUtama
     Top = 152
     Width = 113
     Caption = 'Invers'
+    OnClick = ButtonInversClick
     TabOrder = 8
   end
   object OpenPictureDialog1: TOpenPictureDialog

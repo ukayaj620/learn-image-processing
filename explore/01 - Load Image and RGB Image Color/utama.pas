@@ -30,6 +30,7 @@ type
     procedure ButtonColorClick(Sender: TObject);
     procedure ButtonGrayClick(Sender: TObject);
     procedure ButtonGreenClick(Sender: TObject);
+    procedure ButtonInversClick(Sender: TObject);
     procedure ButtonLoadImageClick(Sender: TObject);
     procedure ButtonRedClick(Sender: TObject);
     procedure ButtonSaveClick(Sender: TObject);
@@ -149,6 +150,19 @@ begin
     for x := 0 to Image1.Width-1 do
     begin
       Image1.Canvas.Pixels[x,y] := RGB(0, bitmapG[x,y], 0);
+    end;
+  end;
+end;
+
+procedure TFormUtama.ButtonInversClick(Sender: TObject);
+var
+  x, y : integer;
+begin
+  for y := 0 to Image1.Height-1 do
+  begin
+    for x := 0 to Image1.Width-1 do
+    begin
+      Image1.Canvas.Pixels[x,y] := RGB(255-bitmapR[x,y], 255-bitmapG[x,y], 255-bitmapB[x,y]);
     end;
   end;
 end;

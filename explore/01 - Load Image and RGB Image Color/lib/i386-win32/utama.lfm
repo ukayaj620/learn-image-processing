@@ -1,7 +1,7 @@
 object FormUtama: TFormUtama
-  Left = 454
+  Left = 403
   Height = 446
-  Top = 176
+  Top = 296
   Width = 1079
   Caption = 'Praktikum 1 - Jayaku - 32180088'
   ClientHeight = 446
@@ -77,6 +77,24 @@ object FormUtama: TFormUtama
     Caption = 'Save'
     OnClick = ButtonSaveClick
     TabOrder = 6
+  end
+  object ButtonBinary: TButton
+    Left = 784
+    Height = 38
+    Top = 88
+    Width = 113
+    Caption = 'Binary'
+    OnClick = ButtonBinaryClick
+    TabOrder = 7
+  end
+  object ButtonInvers: TButton
+    Left = 784
+    Height = 38
+    Top = 152
+    Width = 113
+    Caption = 'Invers'
+    OnClick = ButtonInversClick
+    TabOrder = 8
   end
   object OpenPictureDialog1: TOpenPictureDialog
     left = 336
