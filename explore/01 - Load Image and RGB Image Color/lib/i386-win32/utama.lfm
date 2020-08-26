@@ -96,6 +96,33 @@ object FormUtama: TFormUtama
     OnClick = ButtonInversClick
     TabOrder = 8
   end
+  object TrackBar1: TTrackBar
+    Left = 16
+    Height = 38
+    Top = 360
+    Width = 265
+    Max = 50
+    Min = -50
+    OnChange = TrackBar1Change
+    Position = 0
+    TabOrder = 9
+  end
+  object Label1: TLabel
+    Left = 19
+    Height = 25
+    Top = 336
+    Width = 27
+    Caption = '-50'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 248
+    Height = 25
+    Top = 336
+    Width = 20
+    Caption = '50'
+    ParentColor = False
+  end
   object OpenPictureDialog1: TOpenPictureDialog
     left = 336
     top = 95

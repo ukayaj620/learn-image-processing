@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
-  ExtDlgs;
+  ExtDlgs, ComCtrls;
 
 type
 
@@ -23,8 +23,11 @@ type
     ButtonColor: TButton;
     ButtonLoadImage: TButton;
     Image1: TImage;
+    Label1: TLabel;
+    Label2: TLabel;
     OpenPictureDialog1: TOpenPictureDialog;
     SavePictureDialog1: TSavePictureDialog;
+    TrackBar1: TTrackBar;
     procedure ButtonBinaryClick(Sender: TObject);
     procedure ButtonBlueClick(Sender: TObject);
     procedure ButtonColorClick(Sender: TObject);
@@ -34,6 +37,7 @@ type
     procedure ButtonLoadImageClick(Sender: TObject);
     procedure ButtonRedClick(Sender: TObject);
     procedure ButtonSaveClick(Sender: TObject);
+    procedure TrackBar1Change(Sender: TObject);
   private
 
   public
@@ -93,6 +97,46 @@ begin
   if SavePictureDialog1.Execute then
   begin
     Image1.Picture.SaveToFile(SavePictureDialog1.FileName);
+  end;
+end;
+
+procedure TFormUtama.TrackBar1Change(Sender: TObject);
+var
+  x, y, newR, newG, newB : integer;
+begin
+  for y := 0 to Image1.Height-1 do
+  begin
+    for x := 0 to Image1.Width-1 do
+    begin
+      newR := bitmapR[x,y] + TrackBar1.Position;
+      newG := bitmapG[x,y] + TrackBar1.Position;
+      newB := bitmapB[x,y] + TrackBar1.Position;
+      if newR > 255 then
+      begin
+        newR := 255;
+      end;
+      if newG > 255 then
+      begin
+        newG := 255;
+      end;
+      if newB > 255 then
+      begin
+        newB := 255;
+      end;
+      if newR < 0 then
+      begin
+        newR := 0;
+      end;
+      if newG < 0 then
+      begin
+        newG := 0;
+      end;
+      if newB < 0 then
+      begin
+        newB := 0;
+      end;
+      Image1.Canvas.Pixels[x,y] := RGB(newR, newG, newB);
+    end;
   end;
 end;
 
