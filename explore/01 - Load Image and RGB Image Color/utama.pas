@@ -137,8 +137,25 @@ begin
 end;
 
 procedure TFormUtama.ButtonBinaryClick(Sender: TObject);
+var
+  x, y : integer;
 begin
-
+  for y := 0 to Image1.Height-1 do
+  begin
+    for x := 0 to Image1.Width-1 do
+    begin
+      if ((bitmapR[x,y] >= 0) and (bitmapR[x,y] <= 127)) or
+         ((bitmapG[x,y] >= 0) and (bitmapG[x,y] <= 127)) or
+         ((bitmapR[x,y] >= 0) and (bitmapR[x,y] <= 127)) then
+       begin
+         Image1.Canvas.Pixels[x,y] := RGB(0, 0, 0);
+       end
+      else
+      begin
+        Image1.Canvas.Pixels[x,y] := RGB(255, 255, 255);
+      end;
+    end;
+  end;
 end;
 
 procedure TFormUtama.ButtonGreenClick(Sender: TObject);
