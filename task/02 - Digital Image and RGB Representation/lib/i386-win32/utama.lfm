@@ -85,6 +85,7 @@ object FormUtama: TFormUtama
     Top = 88
     Width = 113
     Caption = 'Binary'
+    OnClick = ButtonBinaryClick
     TabOrder = 7
   end
   object TrackBarBinary: TTrackBar
@@ -93,6 +94,7 @@ object FormUtama: TFormUtama
     Top = 88
     Width = 374
     Max = 255
+    OnChange = TrackBarBinaryChange
     Position = 127
     TabOrder = 8
   end
