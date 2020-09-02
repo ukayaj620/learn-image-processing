@@ -23,16 +23,8 @@ type
     ButtonLoadImage: TButton;
     Image1: TImage;
     OpenPictureDialog1: TOpenPictureDialog;
-    RadioBlack: TRadioButton;
-    RadioBlack1: TRadioButton;
-    RadioBlue1: TRadioButton;
-    RadioGreen: TRadioButton;
-    RadioBlue: TRadioButton;
-    RadioGreen1: TRadioButton;
     RadioGroupGray: TRadioGroup;
-    RadioRed: TRadioButton;
     RadioGroupBinary: TRadioGroup;
-    RadioRed1: TRadioButton;
     SavePictureDialog1: TSavePictureDialog;
     TrackBarBinary: TTrackBar;
     procedure ButtonBlueClick(Sender: TObject);
@@ -42,6 +34,7 @@ type
     procedure ButtonLoadImageClick(Sender: TObject);
     procedure ButtonRedClick(Sender: TObject);
     procedure ButtonSaveClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
 
   public
@@ -104,6 +97,12 @@ begin
   end;
 end;
 
+procedure TFormUtama.FormShow(Sender: TObject);
+begin
+  RadioGroupBinary.ItemIndex := 0;
+  RadioGroupGray.ItemIndex := 0;
+end;
+
 procedure TFormUtama.ButtonColorClick(Sender: TObject);
 var
   x, y : integer;
@@ -126,7 +125,12 @@ begin
     for x := 0 to Image1.Width-1 do
     begin
       gray := (bitmapR[x,y] + bitmapG[x,y] + bitmapB[x,y]) div 3;
-      Image1.Canvas.Pixels[x,y] := RGB(gray, gray, gray);
+      case(RadioGroupGray.ItemIndex) of
+        0 : Image1.Canvas.Pixels[x,y] := RGB(gray, gray, gray);
+        1 : Image1.Canvas.Pixels[x,y] := RGB(gray, 0, 0);
+        2 : Image1.Canvas.Pixels[x,y] := RGB(0, gray, 0);
+        3 : Image1.Canvas.Pixels[x,y] := RGB(0, 0, gray);
+      end;
     end;
   end;
 end;

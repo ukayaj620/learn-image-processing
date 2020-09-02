@@ -7,6 +7,7 @@ object FormUtama: TFormUtama
   ClientHeight = 520
   ClientWidth = 923
   DesignTimePPI = 144
+  OnShow = FormShow
   LCLVersion = '2.0.6.0'
   object Image1: TImage
     Left = 25
@@ -111,39 +112,14 @@ object FormUtama: TFormUtama
     ClientHeight = 24
     ClientWidth = 322
     ColumnLayout = clVerticalThenHorizontal
+    Columns = 4
+    Items.Strings = (
+      'Black'
+      'Red'
+      'Green'
+      'Blue'
+    )
     TabOrder = 9
-    object RadioBlack: TRadioButton
-      Left = 6
-      Height = 24
-      Top = 0
-      Width = 80
-      Caption = 'Black'
-      TabOrder = 0
-    end
-    object RadioRed: TRadioButton
-      Left = 86
-      Height = 24
-      Top = 0
-      Width = 71
-      Caption = 'Red'
-      TabOrder = 1
-    end
-    object RadioGreen: TRadioButton
-      Left = 157
-      Height = 24
-      Top = 0
-      Width = 86
-      Caption = 'Green'
-      TabOrder = 2
-    end
-    object RadioBlue: TRadioButton
-      Left = 243
-      Height = 24
-      Top = 0
-      Width = 73
-      Caption = 'Blue'
-      TabOrder = 3
-    end
   end
   object RadioGroupGray: TRadioGroup
     Left = 192
@@ -161,39 +137,14 @@ object FormUtama: TFormUtama
     ClientHeight = 24
     ClientWidth = 322
     ColumnLayout = clVerticalThenHorizontal
+    Columns = 4
+    Items.Strings = (
+      'Gray'
+      'Red'
+      'Green'
+      'Blue'
+    )
     TabOrder = 10
-    object RadioBlack1: TRadioButton
-      Left = 6
-      Height = 24
-      Top = 0
-      Width = 80
-      Caption = 'Black'
-      TabOrder = 0
-    end
-    object RadioRed1: TRadioButton
-      Left = 86
-      Height = 24
-      Top = 0
-      Width = 71
-      Caption = 'Red'
-      TabOrder = 1
-    end
-    object RadioGreen1: TRadioButton
-      Left = 157
-      Height = 24
-      Top = 0
-      Width = 86
-      Caption = 'Green'
-      TabOrder = 2
-    end
-    object RadioBlue1: TRadioButton
-      Left = 243
-      Height = 24
-      Top = 0
-      Width = 73
-      Caption = 'Blue'
-      TabOrder = 3
-    end
   end
   object OpenPictureDialog1: TOpenPictureDialog
     left = 360
