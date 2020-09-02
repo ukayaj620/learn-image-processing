@@ -6,13 +6,14 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
-  ExtDlgs;
+  ExtDlgs, ComCtrls;
 
 type
 
   { TFormUtama }
 
   TFormUtama = class(TForm)
+    ButtonBinary: TButton;
     ButtonSave: TButton;
     ButtonGray: TButton;
     ButtonBlue: TButton;
@@ -22,7 +23,18 @@ type
     ButtonLoadImage: TButton;
     Image1: TImage;
     OpenPictureDialog1: TOpenPictureDialog;
+    RadioBlack: TRadioButton;
+    RadioBlack1: TRadioButton;
+    RadioBlue1: TRadioButton;
+    RadioGreen: TRadioButton;
+    RadioBlue: TRadioButton;
+    RadioGreen1: TRadioButton;
+    RadioGroupGray: TRadioGroup;
+    RadioRed: TRadioButton;
+    RadioGroupBinary: TRadioGroup;
+    RadioRed1: TRadioButton;
     SavePictureDialog1: TSavePictureDialog;
+    TrackBarBinary: TTrackBar;
     procedure ButtonBlueClick(Sender: TObject);
     procedure ButtonColorClick(Sender: TObject);
     procedure ButtonGrayClick(Sender: TObject);

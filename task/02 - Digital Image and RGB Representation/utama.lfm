@@ -10,9 +10,9 @@ object FormUtama: TFormUtama
   LCLVersion = '2.0.6.0'
   object Image1: TImage
     Left = 25
-    Height = 142
+    Height = 190
     Top = 240
-    Width = 175
+    Width = 247
     AutoSize = True
   end
   object ButtonLoadImage: TButton
@@ -63,7 +63,7 @@ object FormUtama: TFormUtama
   object ButtonGray: TButton
     Left = 25
     Height = 38
-    Top = 160
+    Top = 152
     Width = 113
     Caption = 'Monochrome'
     OnClick = ButtonGrayClick
@@ -77,6 +77,123 @@ object FormUtama: TFormUtama
     Caption = 'Save'
     OnClick = ButtonSaveClick
     TabOrder = 6
+  end
+  object ButtonBinary: TButton
+    Left = 25
+    Height = 38
+    Top = 88
+    Width = 113
+    Caption = 'Binary'
+    TabOrder = 7
+  end
+  object TrackBarBinary: TTrackBar
+    Left = 176
+    Height = 38
+    Top = 88
+    Width = 374
+    Max = 255
+    Position = 127
+    TabOrder = 8
+  end
+  object RadioGroupBinary: TRadioGroup
+    Left = 563
+    Height = 54
+    Top = 72
+    Width = 326
+    AutoFill = True
+    ChildSizing.LeftRightSpacing = 6
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclTopToBottomThenLeftToRight
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 24
+    ClientWidth = 322
+    ColumnLayout = clVerticalThenHorizontal
+    TabOrder = 9
+    object RadioBlack: TRadioButton
+      Left = 6
+      Height = 24
+      Top = 0
+      Width = 80
+      Caption = 'Black'
+      TabOrder = 0
+    end
+    object RadioRed: TRadioButton
+      Left = 86
+      Height = 24
+      Top = 0
+      Width = 71
+      Caption = 'Red'
+      TabOrder = 1
+    end
+    object RadioGreen: TRadioButton
+      Left = 157
+      Height = 24
+      Top = 0
+      Width = 86
+      Caption = 'Green'
+      TabOrder = 2
+    end
+    object RadioBlue: TRadioButton
+      Left = 243
+      Height = 24
+      Top = 0
+      Width = 73
+      Caption = 'Blue'
+      TabOrder = 3
+    end
+  end
+  object RadioGroupGray: TRadioGroup
+    Left = 192
+    Height = 54
+    Top = 136
+    Width = 326
+    AutoFill = True
+    ChildSizing.LeftRightSpacing = 6
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclTopToBottomThenLeftToRight
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 24
+    ClientWidth = 322
+    ColumnLayout = clVerticalThenHorizontal
+    TabOrder = 10
+    object RadioBlack1: TRadioButton
+      Left = 6
+      Height = 24
+      Top = 0
+      Width = 80
+      Caption = 'Black'
+      TabOrder = 0
+    end
+    object RadioRed1: TRadioButton
+      Left = 86
+      Height = 24
+      Top = 0
+      Width = 71
+      Caption = 'Red'
+      TabOrder = 1
+    end
+    object RadioGreen1: TRadioButton
+      Left = 157
+      Height = 24
+      Top = 0
+      Width = 86
+      Caption = 'Green'
+      TabOrder = 2
+    end
+    object RadioBlue1: TRadioButton
+      Left = 243
+      Height = 24
+      Top = 0
+      Width = 73
+      Caption = 'Blue'
+      TabOrder = 3
+    end
   end
   object OpenPictureDialog1: TOpenPictureDialog
     left = 360
