@@ -38,7 +38,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure TrackBarBinaryChange(Sender: TObject);
   private
-
+    procedure AssignBitmapBinary();
   public
 
   end;
@@ -76,7 +76,7 @@ begin
       end;
     end;
   end;
-
+  AssignBitmapBinary();
 end;
 
 procedure TFormUtama.ButtonRedClick(Sender: TObject);
@@ -107,18 +107,17 @@ begin
   TrackBarBinary.Position := 127;
 end;
 
-procedure TFormUtama.TrackBarBinaryChange(Sender: TObject);
+procedure TFormUtama.AssignBitmapBinary();
 var
-  x, y, threshold : integer;
+  x, y, threshold, gray : integer;
 begin
   threshold := TrackBarBinary.Position;
   for y := 0 to Image1.Height-1 do
   begin
     for x := 0 to Image1.Width-1 do
     begin
-      if ((bitmapR[x,y] >= 0) and (bitmapR[x,y] <= threshold)) or
-         ((bitmapG[x,y] >= 0) and (bitmapG[x,y] <= threshold)) or
-         ((bitmapR[x,y] >= 0) and (bitmapR[x,y] <= threshold)) then
+      gray := (bitmapR[x,y] + bitmapG[x,y] + bitmapB[x,y]) div 3;
+      if gray <= threshold then
        begin
          bitmapBinary[x,y] := false;
        end
@@ -128,6 +127,11 @@ begin
       end;
     end;
   end;
+end;
+
+procedure TFormUtama.TrackBarBinaryChange(Sender: TObject);
+begin
+  AssignBitmapBinary();
 end;
 
 procedure TFormUtama.ButtonColorClick(Sender: TObject);
@@ -157,7 +161,7 @@ begin
         1 : Image1.Canvas.Pixels[x,y] := RGB(gray, 0, 0);
         2 : Image1.Canvas.Pixels[x,y] := RGB(0, gray, 0);
         3 : Image1.Canvas.Pixels[x,y] := RGB(0, 0, gray);
-      end;
+  end;
     end;
   end;
 end;
@@ -177,7 +181,7 @@ end;
 
 procedure TFormUtama.ButtonBinaryClick(Sender: TObject);
 var
-  x, y, binary : integer;
+  x, y : integer;
 begin
   for y := 0 to Image1.Height-1 do
   begin
@@ -185,17 +189,16 @@ begin
     begin
       if bitmapBinary[x,y] = true then
       begin
-        binary := 255;
+        case(RadioGroupBinary.ItemIndex) of
+          0 : Image1.Canvas.Pixels[x,y] := RGB(0, 0, 0);
+          1 : Image1.Canvas.Pixels[x,y] := RGB(255, 0, 0);
+          2 : Image1.Canvas.Pixels[x,y] := RGB(0, 255, 0);
+          3 : Image1.Canvas.Pixels[x,y] := RGB(0, 0, 255);
+        end;
       end
       else
       begin
-        binary := 0;
-      end;
-      case(RadioGroupBinary.ItemIndex) of
-        0 : Image1.Canvas.Pixels[x,y] := RGB(binary, binary, binary);
-        1 : Image1.Canvas.Pixels[x,y] := RGB(binary, 0, 0);
-        2 : Image1.Canvas.Pixels[x,y] := RGB(0, binary, 0);
-        3 : Image1.Canvas.Pixels[x,y] := RGB(0, 0, binary);
+        Image1.Canvas.Pixels[x,y] := RGB(255, 255, 255);
       end;
     end;
   end;
