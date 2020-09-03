@@ -118,9 +118,9 @@ begin
     begin
       gray := (bitmapR[x,y] + bitmapG[x,y] + bitmapB[x,y]) div 3;
       if gray <= threshold then
-       begin
-         bitmapBinary[x,y] := false;
-       end
+      begin
+        bitmapBinary[x,y] := false;
+      end
       else
       begin
         bitmapBinary[x,y] := true;
