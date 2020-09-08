@@ -73,7 +73,7 @@ object FormUtama: TFormUtama
   object ButtonSave: TButton
     Left = 776
     Height = 38
-    Top = 24
+    Top = 448
     Width = 113
     Caption = 'Save'
     OnClick = ButtonSaveClick
@@ -147,6 +147,24 @@ object FormUtama: TFormUtama
       'Blue'
     )
     TabOrder = 10
+  end
+  object ButtonGrayInvers: TButton
+    Left = 544
+    Height = 38
+    Top = 152
+    Width = 113
+    Caption = 'Mono Invers'
+    OnClick = ButtonGrayInversClick
+    TabOrder = 11
+  end
+  object ButtonColorInvers: TButton
+    Left = 776
+    Height = 38
+    Top = 24
+    Width = 113
+    Caption = 'Color Invers'
+    OnClick = ButtonColorInversClick
+    TabOrder = 12
   end
   object OpenPictureDialog1: TOpenPictureDialog
     left = 360

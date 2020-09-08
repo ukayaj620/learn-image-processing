@@ -13,6 +13,8 @@ type
   { TFormUtama }
 
   TFormUtama = class(TForm)
+    ButtonColorInvers: TButton;
+    ButtonGrayInvers: TButton;
     ButtonBinary: TButton;
     ButtonSave: TButton;
     ButtonGray: TButton;
@@ -27,6 +29,8 @@ type
     RadioGroupBinary: TRadioGroup;
     SavePictureDialog1: TSavePictureDialog;
     TrackBarBinary: TTrackBar;
+    procedure ButtonColorInversClick(Sender: TObject);
+    procedure ButtonGrayInversClick(Sender: TObject);
     procedure ButtonBinaryClick(Sender: TObject);
     procedure ButtonBlueClick(Sender: TObject);
     procedure ButtonColorClick(Sender: TObject);
@@ -161,7 +165,7 @@ begin
         1 : Image1.Canvas.Pixels[x,y] := RGB(gray, 0, 0);
         2 : Image1.Canvas.Pixels[x,y] := RGB(0, gray, 0);
         3 : Image1.Canvas.Pixels[x,y] := RGB(0, 0, gray);
-  end;
+      end;
     end;
   end;
 end;
@@ -200,6 +204,38 @@ begin
       begin
         Image1.Canvas.Pixels[x,y] := RGB(255, 255, 255);
       end;
+    end;
+  end;
+end;
+
+procedure TFormUtama.ButtonGrayInversClick(Sender: TObject);
+var
+  x, y, gray : integer;
+begin
+  for y := 0 to Image1.Height-1 do
+  begin
+    for x := 0 to Image1.Width-1 do
+    begin
+      gray := 255 - ((bitmapR[x,y] + bitmapG[x,y] + bitmapB[x,y]) div 3);
+      case(RadioGroupGray.ItemIndex) of
+        0 : Image1.Canvas.Pixels[x,y] := RGB(gray, gray, gray);
+        1 : Image1.Canvas.Pixels[x,y] := RGB(gray, 0, 0);
+        2 : Image1.Canvas.Pixels[x,y] := RGB(0, gray, 0);
+        3 : Image1.Canvas.Pixels[x,y] := RGB(0, 0, gray);
+      end;
+    end;
+  end;
+end;
+
+procedure TFormUtama.ButtonColorInversClick(Sender: TObject);
+var
+  x, y : integer;
+begin
+  for y := 0 to Image1.Height-1 do
+  begin
+    for x := 0 to Image1.Width-1 do
+    begin
+      Image1.Canvas.Pixels[x,y] := RGB(255-bitmapR[x,y], 255-bitmapG[x,y], 255-bitmapB[x,y]);
     end;
   end;
 end;
