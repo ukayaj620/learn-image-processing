@@ -1,0 +1,159 @@
+object FormUtama: TFormUtama
+  Left = 454
+  Height = 520
+  Top = 176
+  Width = 923
+  Caption = 'Praktikum 2 - Jayaku - 32180088'
+  ClientHeight = 520
+  ClientWidth = 923
+  DesignTimePPI = 144
+  OnShow = FormShow
+  LCLVersion = '2.0.6.0'
+  object Image1: TImage
+    Left = 25
+    Height = 190
+    Top = 240
+    Width = 247
+    AutoSize = True
+  end
+  object ButtonLoadImage: TButton
+    Left = 25
+    Height = 38
+    Top = 24
+    Width = 113
+    Caption = 'Load Image'
+    OnClick = ButtonLoadImageClick
+    TabOrder = 0
+  end
+  object ButtonColor: TButton
+    Left = 176
+    Height = 38
+    Top = 24
+    Width = 113
+    Caption = 'Color'
+    OnClick = ButtonColorClick
+    TabOrder = 1
+  end
+  object ButtonRed: TButton
+    Left = 328
+    Height = 38
+    Top = 24
+    Width = 113
+    Caption = 'Red'
+    OnClick = ButtonRedClick
+    TabOrder = 2
+  end
+  object ButtonGreen: TButton
+    Left = 480
+    Height = 38
+    Top = 24
+    Width = 113
+    Caption = 'Green'
+    OnClick = ButtonGreenClick
+    TabOrder = 3
+  end
+  object ButtonBlue: TButton
+    Left = 632
+    Height = 38
+    Top = 24
+    Width = 113
+    Caption = 'Blue'
+    OnClick = ButtonBlueClick
+    TabOrder = 4
+  end
+  object ButtonGray: TButton
+    Left = 25
+    Height = 38
+    Top = 152
+    Width = 113
+    Caption = 'Monochrome'
+    OnClick = ButtonGrayClick
+    TabOrder = 5
+  end
+  object ButtonSave: TButton
+    Left = 776
+    Height = 38
+    Top = 24
+    Width = 113
+    Caption = 'Save'
+    OnClick = ButtonSaveClick
+    TabOrder = 6
+  end
+  object ButtonBinary: TButton
+    Left = 25
+    Height = 38
+    Top = 88
+    Width = 113
+    Caption = 'Binary'
+    OnClick = ButtonBinaryClick
+    TabOrder = 7
+  end
+  object TrackBarBinary: TTrackBar
+    Left = 176
+    Height = 38
+    Top = 88
+    Width = 374
+    Max = 255
+    OnChange = TrackBarBinaryChange
+    Position = 127
+    TabOrder = 8
+  end
+  object RadioGroupBinary: TRadioGroup
+    Left = 563
+    Height = 54
+    Top = 72
+    Width = 326
+    AutoFill = True
+    ChildSizing.LeftRightSpacing = 6
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclTopToBottomThenLeftToRight
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 24
+    ClientWidth = 322
+    ColumnLayout = clVerticalThenHorizontal
+    Columns = 4
+    Items.Strings = (
+      'Black'
+      'Red'
+      'Green'
+      'Blue'
+    )
+    TabOrder = 9
+  end
+  object RadioGroupGray: TRadioGroup
+    Left = 192
+    Height = 54
+    Top = 136
+    Width = 326
+    AutoFill = True
+    ChildSizing.LeftRightSpacing = 6
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclTopToBottomThenLeftToRight
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 24
+    ClientWidth = 322
+    ColumnLayout = clVerticalThenHorizontal
+    Columns = 4
+    Items.Strings = (
+      'Gray'
+      'Red'
+      'Green'
+      'Blue'
+    )
+    TabOrder = 10
+  end
+  object OpenPictureDialog1: TOpenPictureDialog
+    left = 360
+    top = 272
+  end
+  object SavePictureDialog1: TSavePictureDialog
+    left = 504
+    top = 272
+  end
+end
