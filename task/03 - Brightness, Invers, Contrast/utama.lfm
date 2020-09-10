@@ -1,12 +1,13 @@
-object Form1: TForm1
+object FormUtama: TFormUtama
   Left = 519
   Height = 591
   Top = 197
-  Width = 984
+  Width = 1024
   Caption = '03-Jayaku-Operasi Tingkat Titik'
   ClientHeight = 591
-  ClientWidth = 984
+  ClientWidth = 1024
   DesignTimePPI = 144
+  OnShow = FormShow
   LCLVersion = '2.0.6.0'
   object ButtonLoad: TButton
     Left = 24
@@ -14,6 +15,7 @@ object Form1: TForm1
     Top = 16
     Width = 113
     Caption = 'Load'
+    OnClick = ButtonLoadClick
     TabOrder = 0
   end
   object ButtonSave: TButton
@@ -22,6 +24,7 @@ object Form1: TForm1
     Top = 80
     Width = 113
     Caption = 'Save'
+    OnClick = ButtonSaveClick
     TabOrder = 1
   end
   object ButtonColor: TButton
@@ -30,6 +33,7 @@ object Form1: TForm1
     Top = 16
     Width = 113
     Caption = 'Color'
+    OnClick = ButtonColorClick
     TabOrder = 2
   end
   object ButtonInvers: TButton
@@ -38,6 +42,7 @@ object Form1: TForm1
     Top = 80
     Width = 113
     Caption = 'Invers'
+    OnClick = ButtonInversClick
     TabOrder = 3
   end
   object ButtonGray: TButton
@@ -46,6 +51,7 @@ object Form1: TForm1
     Top = 16
     Width = 113
     Caption = 'Gray'
+    OnClick = ButtonGrayClick
     TabOrder = 4
   end
   object ButtonBinary: TButton
@@ -54,6 +60,7 @@ object Form1: TForm1
     Top = 16
     Width = 113
     Caption = 'Binary'
+    OnClick = ButtonBinaryClick
     TabOrder = 5
   end
   object ButtonBrightness: TButton
@@ -62,6 +69,7 @@ object Form1: TForm1
     Top = 80
     Width = 113
     Caption = 'Brightness'
+    OnClick = ButtonBrightnessClick
     TabOrder = 6
   end
   object ButtonContrast: TButton
@@ -70,64 +78,69 @@ object Form1: TForm1
     Top = 144
     Width = 113
     Caption = 'Contrast'
+    OnClick = ButtonContrastClick
     TabOrder = 7
   end
-  object TrackBar1: TTrackBar
+  object TrackBarBinary: TTrackBar
     Left = 576
     Height = 38
     Top = 16
     Width = 278
-    Position = 0
+    Max = 255
+    OnChange = TrackBarBinaryChange
+    Position = 127
     TabOrder = 8
   end
-  object TrackBar2: TTrackBar
+  object TrackBarBrightness: TTrackBar
     Left = 576
     Height = 38
     Top = 80
     Width = 278
+    Max = 255
+    Min = -255
+    OnChange = TrackBarBrightnessChange
     Position = 0
     TabOrder = 9
   end
-  object TrackBar3: TTrackBar
+  object TrackBarContrast: TTrackBar
     Left = 576
     Height = 38
     Top = 144
     Width = 278
-    Position = 0
+    Max = 255
+    OnChange = TrackBarContrastChange
+    Position = 127
     TabOrder = 10
   end
-  object TrackBar4: TTrackBar
+  object TrackBarG: TTrackBar
     Left = 576
     Height = 38
     Top = 208
     Width = 150
-    Position = 0
+    OnChange = TrackBarGChange
+    Position = 2
     TabOrder = 11
   end
   object Bevel1: TBevel
     Left = 24
     Height = 297
     Top = 263
-    Width = 935
+    Width = 976
+    Anchors = [akTop, akLeft, akRight, akBottom]
   end
   object ImageSource: TImage
     Left = 48
     Height = 135
     Top = 280
     Width = 135
+    AutoSize = True
   end
-  object ImageQuantify: TImage
-    Left = 472
-    Height = 135
-    Top = 280
-    Width = 135
-  end
-  object Label1: TLabel
+  object LabelImage: TLabel
     Left = 32
     Height = 51
     Top = 176
-    Width = 142
-    Caption = 'Label1'
+    Width = 267
+    Caption = 'Image Type'
     Font.CharSet = ANSI_CHARSET
     Font.Color = clBlack
     Font.Height = -48
@@ -136,6 +149,73 @@ object Form1: TForm1
     Font.Quality = fqDraft
     ParentColor = False
     ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 856
+    Height = 25
+    Top = 16
+    Width = 78
+    Caption = 'Threshold'
+    ParentColor = False
+  end
+  object LabelThreshold: TLabel
+    Left = 960
+    Height = 1
+    Top = 16
+    Width = 1
+    ParentColor = False
+  end
+  object Label3: TLabel
+    Left = 856
+    Height = 25
+    Top = 80
+    Width = 84
+    Caption = 'Coefficient'
+    ParentColor = False
+  end
+  object LabelBrightness: TLabel
+    Left = 952
+    Height = 1
+    Top = 80
+    Width = 1
+    ParentColor = False
+  end
+  object Label4: TLabel
+    Left = 728
+    Height = 25
+    Top = 208
+    Width = 12
+    Caption = 'G'
+    ParentColor = False
+  end
+  object LabelG: TLabel
+    Left = 760
+    Height = 1
+    Top = 208
+    Width = 1
+    ParentColor = False
+  end
+  object Label5: TLabel
+    Left = 856
+    Height = 25
+    Top = 144
+    Width = 10
+    Caption = 'P'
+    ParentColor = False
+  end
+  object LabelP: TLabel
+    Left = 883
+    Height = 1
+    Top = 144
+    Width = 1
+    ParentColor = False
+  end
+  object ImageQuantify: TImage
+    Left = 616
+    Height = 246
+    Top = 280
+    Width = 360
+    AutoSize = True
   end
   object OpenPictureDialog1: TOpenPictureDialog
     left = 336
