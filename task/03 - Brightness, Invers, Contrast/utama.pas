@@ -25,6 +25,14 @@ type
     ImageSource: TImage;
     ImageQuantify: TImage;
     Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    LabelP: TLabel;
+    LabelG: TLabel;
+    LabelBrightness: TLabel;
+    LabelThreshold: TLabel;
     OpenPictureDialog1: TOpenPictureDialog;
     SavePictureDialog1: TSavePictureDialog;
     TrackBar1: TTrackBar;
