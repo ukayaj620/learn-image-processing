@@ -7,6 +7,7 @@ object FormUtama: TFormUtama
   ClientHeight = 591
   ClientWidth = 1024
   DesignTimePPI = 144
+  OnShow = FormShow
   LCLVersion = '2.0.6.0'
   object ButtonLoad: TButton
     Left = 24
@@ -77,6 +78,7 @@ object FormUtama: TFormUtama
     Top = 144
     Width = 113
     Caption = 'Contrast'
+    OnClick = ButtonContrastClick
     TabOrder = 7
   end
   object TrackBarBinary: TTrackBar
@@ -116,7 +118,7 @@ object FormUtama: TFormUtama
     Top = 208
     Width = 150
     OnChange = TrackBarGChange
-    Position = 0
+    Position = 2
     TabOrder = 11
   end
   object Bevel1: TBevel

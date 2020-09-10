@@ -42,10 +42,12 @@ type
     procedure ButtonBinaryClick(Sender: TObject);
     procedure ButtonBrightnessClick(Sender: TObject);
     procedure ButtonColorClick(Sender: TObject);
+    procedure ButtonContrastClick(Sender: TObject);
     procedure ButtonGrayClick(Sender: TObject);
     procedure ButtonInversClick(Sender: TObject);
     procedure ButtonLoadClick(Sender: TObject);
     procedure ButtonSaveClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure TrackBarGChange(Sender: TObject);
     procedure TrackBarBinaryChange(Sender: TObject);
     procedure TrackBarBrightnessChange(Sender: TObject);
@@ -107,6 +109,36 @@ begin
   end;
   colorMode := True;
   LabelImage.Caption := 'Colorful';
+end;
+
+procedure TFormUtama.ButtonContrastClick(Sender: TObject);
+var
+  x, y, Gval, Pval : integer;
+  gray : byte;
+
+  R, G, B : byte;
+begin
+  Gval := TrackBarG.Position;
+  Pval := TrackBarContrast.Position;
+  for y := 0 to ImageSource.Height-1 do
+  begin
+    for x := 0 to ImageSource.Width-1 do
+    begin
+      if colorMode = True then
+      begin
+        R := ClipperItUp(Gval * (bitmapR[x, y] - Pval) + Pval);
+        G := ClipperItUp(Gval * (bitmapG[x, y] - Pval) + Pval);
+        B := ClipperItUp(Gval * (bitmapB[x, y] - Pval) + Pval);
+        ImageQuantify.Canvas.Pixels[x, y] := RGB(R, G, B);
+      end
+      else
+      begin
+        gray := ClipperItUp(Gval * ((bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3 - Pval) + Pval);
+        ImageQuantify.Canvas.Pixels[x, y] := RGB(gray, gray, gray);
+      end;
+    end;
+  end;
+
 end;
 
 procedure TFormUtama.ButtonBinaryClick(Sender: TObject);
@@ -207,6 +239,14 @@ begin
   begin
     ImageQuantify.Picture.SaveToFile(SavePictureDialog1.FileName);
   end;
+end;
+
+procedure TFormUtama.FormShow(Sender: TObject);
+begin
+  LabelG.Caption := IntToStr(TrackBarG.Position);
+  LabelThreshold.Caption := IntToStr(TrackBarBinary.Position);
+  LabelBrightness.Caption := IntToStr(TrackBarBrightness.Position);
+  LabelP.Caption := IntToStr(TrackBarContrast.Position);
 end;
 
 procedure TFormUtama.TrackBarGChange(Sender: TObject);
