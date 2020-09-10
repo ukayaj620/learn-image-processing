@@ -41,6 +41,7 @@ object FormUtama: TFormUtama
     Top = 80
     Width = 113
     Caption = 'Invers'
+    OnClick = ButtonInversClick
     TabOrder = 3
   end
   object ButtonGray: TButton

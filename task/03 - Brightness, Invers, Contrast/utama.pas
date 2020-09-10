@@ -42,6 +42,7 @@ type
     procedure ButtonBinaryClick(Sender: TObject);
     procedure ButtonColorClick(Sender: TObject);
     procedure ButtonGrayClick(Sender: TObject);
+    procedure ButtonInversClick(Sender: TObject);
     procedure ButtonLoadClick(Sender: TObject);
     procedure ButtonSaveClick(Sender: TObject);
     procedure TrackBarGChange(Sender: TObject);
@@ -88,6 +89,8 @@ begin
       end;
     end;
   end;
+  colorMode := True;
+  LabelImage.Caption := 'Colorful';
 end;
 
 procedure TFormUtama.ButtonColorClick(Sender: TObject);
@@ -140,6 +143,27 @@ begin
   end;
   colorMode := False;
   LabelImage.Caption := 'Monochrome';
+end;
+
+procedure TFormUtama.ButtonInversClick(Sender: TObject);
+var
+  x, y : integer;
+  inversedGray : byte;
+begin
+  for y := 0 to ImageSource.Height-1 do
+  begin
+    for x := 0 to ImageSource.Width-1 do
+    begin
+      if colorMode = True then
+        ImageQuantify.Canvas.Pixels[x, y] := RGB(255-bitmapR[x, y], 255-bitmapG[x, y], 255-bitmapB[x, y])
+      else
+      begin
+        inversedGray := 255 - ((bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3);
+        ImageQuantify.Canvas.Pixels[x, y] := RGB(inversedGray, inversedGray, inversedGray);
+      end;
+    end;
+  end;
+
 end;
 
 procedure TFormUtama.ButtonSaveClick(Sender: TObject);
