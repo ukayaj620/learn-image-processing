@@ -17,24 +17,61 @@
       <Unit1>
         <Filename Value="utama.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="Form1"/>
+        <ComponentName Value="FormUtama"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <CursorPos X="46" Y="11"/>
+        <TopLine Value="104"/>
+        <CursorPos X="46" Y="108"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
     </Units>
-    <JumpHistory Count="2" HistoryIndex="1">
+    <JumpHistory Count="11" HistoryIndex="10">
       <Position1>
         <Filename Value="utama.pas"/>
         <Caret Line="10" Column="46"/>
       </Position1>
       <Position2>
         <Filename Value="utama.pas"/>
-        <Caret Line="11" Column="46"/>
+        <Caret Line="11" Column="46" TopLine="4"/>
       </Position2>
+      <Position3>
+        <Filename Value="utama.pas"/>
+        <Caret Line="10" Column="21" TopLine="13"/>
+      </Position3>
+      <Position4>
+        <Filename Value="utama.pas"/>
+        <Caret Line="37" Column="46" TopLine="26"/>
+      </Position4>
+      <Position5>
+        <Filename Value="utama.pas"/>
+        <Caret Line="113" Column="43" TopLine="83"/>
+      </Position5>
+      <Position6>
+        <Filename Value="utama.pas"/>
+        <Caret Line="115" Column="4" TopLine="88"/>
+      </Position6>
+      <Position7>
+        <Filename Value="utama.pas"/>
+        <Caret Line="118" Column="4" TopLine="88"/>
+      </Position7>
+      <Position8>
+        <Filename Value="utama.pas"/>
+        <Caret Line="98" Column="44" TopLine="81"/>
+      </Position8>
+      <Position9>
+        <Filename Value="utama.pas"/>
+        <Caret Line="92" Column="57" TopLine="82"/>
+      </Position9>
+      <Position10>
+        <Filename Value="utama.pas"/>
+        <Caret Line="101" Column="60" TopLine="83"/>
+      </Position10>
+      <Position11>
+        <Filename Value="utama.pas"/>
+        <Caret Line="98" Column="17" TopLine="80"/>
+      </Position11>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

@@ -1,4 +1,4 @@
-object Form1: TForm1
+object FormUtama: TFormUtama
   Left = 519
   Height = 591
   Top = 197
@@ -14,6 +14,7 @@ object Form1: TForm1
     Top = 16
     Width = 113
     Caption = 'Load'
+    OnClick = ButtonLoadClick
     TabOrder = 0
   end
   object ButtonSave: TButton
@@ -72,39 +73,43 @@ object Form1: TForm1
     Caption = 'Contrast'
     TabOrder = 7
   end
-  object TrackBar1: TTrackBar
+  object TrackBarBinary: TTrackBar
     Left = 576
     Height = 38
     Top = 16
     Width = 278
     Max = 255
+    OnChange = TrackBarBinaryChange
     Position = 127
     TabOrder = 8
   end
-  object TrackBar2: TTrackBar
+  object TrackBarBrightness: TTrackBar
     Left = 576
     Height = 38
     Top = 80
     Width = 278
     Max = 255
     Min = -255
+    OnChange = TrackBarBrightnessChange
     Position = 0
     TabOrder = 9
   end
-  object TrackBar3: TTrackBar
+  object TrackBarContrast: TTrackBar
     Left = 576
     Height = 38
     Top = 144
     Width = 278
     Max = 255
+    OnChange = TrackBarContrastChange
     Position = 127
     TabOrder = 10
   end
-  object TrackBar4: TTrackBar
+  object TrackBarG: TTrackBar
     Left = 576
     Height = 38
     Top = 208
     Width = 150
+    OnChange = TrackBarGChange
     Position = 0
     TabOrder = 11
   end
@@ -119,19 +124,21 @@ object Form1: TForm1
     Height = 135
     Top = 280
     Width = 135
+    AutoSize = True
   end
   object ImageQuantify: TImage
     Left = 496
     Height = 135
     Top = 280
     Width = 135
+    AutoSize = True
   end
   object Label1: TLabel
     Left = 32
     Height = 51
     Top = 176
-    Width = 142
-    Caption = 'Label1'
+    Width = 267
+    Caption = 'Image Type'
     Font.CharSet = ANSI_CHARSET
     Font.Color = clBlack
     Font.Height = -48
