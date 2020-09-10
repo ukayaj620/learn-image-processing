@@ -68,6 +68,7 @@ object FormUtama: TFormUtama
     Top = 80
     Width = 113
     Caption = 'Brightness'
+    OnClick = ButtonBrightnessClick
     TabOrder = 6
   end
   object ButtonContrast: TButton

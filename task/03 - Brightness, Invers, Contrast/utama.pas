@@ -40,6 +40,7 @@ type
     TrackBarContrast: TTrackBar;
     TrackBarG: TTrackBar;
     procedure ButtonBinaryClick(Sender: TObject);
+    procedure ButtonBrightnessClick(Sender: TObject);
     procedure ButtonColorClick(Sender: TObject);
     procedure ButtonGrayClick(Sender: TObject);
     procedure ButtonInversClick(Sender: TObject);
@@ -50,7 +51,7 @@ type
     procedure TrackBarBrightnessChange(Sender: TObject);
     procedure TrackBarContrastChange(Sender: TObject);
   private
-
+    function ClipperItUp(value: integer): byte;
   public
 
   end;
@@ -128,6 +129,41 @@ begin
   end;
 end;
 
+function TFormUtama.ClipperItUp(value: integer): byte;
+begin
+  if value < 0 then ClipperItUp := 0
+  else if value > 255 then ClipperItUp := 255
+  else ClipperItUp := value;
+end;
+
+procedure TFormUtama.ButtonBrightnessClick(Sender: TObject);
+var
+  x, y, brightCoef : integer;
+  gray : byte;
+
+  R, G, B : byte;
+begin
+  brightCoef := TrackBarBrightness.Position;
+  for y := 0 to ImageSource.Height-1 do
+  begin
+    for x := 0 to ImageSource.Width-1 do
+    begin
+      if colorMode = True then
+      begin
+        R := ClipperItUp(bitmapR[x, y] + brightCoef);
+        G := ClipperItUp(bitmapG[x, y] + brightCoef);
+        B := ClipperItUp(bitmapB[x, y] + brightCoef);
+        ImageQuantify.Canvas.Pixels[x, y] := RGB(R, G, B);
+      end
+      else
+      begin
+        gray := ClipperItUp(((bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3) + brightCoef);
+        ImageQuantify.Canvas.Pixels[x, y] := RGB(gray, gray, gray);
+      end;
+    end;
+  end;
+end;
+
 procedure TFormUtama.ButtonGrayClick(Sender: TObject);
 var
   x, y : integer;
@@ -163,7 +199,6 @@ begin
       end;
     end;
   end;
-
 end;
 
 procedure TFormUtama.ButtonSaveClick(Sender: TObject);
