@@ -24,7 +24,7 @@ type
     ButtonContrast: TButton;
     ImageSource: TImage;
     ImageQuantify: TImage;
-    Label1: TLabel;
+    LabelImage: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
@@ -39,13 +39,16 @@ type
     TrackBarBrightness: TTrackBar;
     TrackBarContrast: TTrackBar;
     TrackBarG: TTrackBar;
+    procedure ButtonBinaryClick(Sender: TObject);
+    procedure ButtonColorClick(Sender: TObject);
+    procedure ButtonGrayClick(Sender: TObject);
     procedure ButtonLoadClick(Sender: TObject);
+    procedure ButtonSaveClick(Sender: TObject);
     procedure TrackBarGChange(Sender: TObject);
     procedure TrackBarBinaryChange(Sender: TObject);
     procedure TrackBarBrightnessChange(Sender: TObject);
     procedure TrackBarContrastChange(Sender: TObject);
   private
-    procedure AssignBitmapBinary();
 
   public
 
@@ -65,7 +68,7 @@ uses
 
 var
   bitmapR, bitmapG, bitmapB : array[0..1000, 0..1000] of byte;
-  bitmapBinary : array[0..1000, 0..1000] of boolean;
+  colorMode : boolean; // Color is True and Monochrome is False
 
 procedure TFormUtama.ButtonLoadClick(Sender: TObject);
 var
@@ -85,7 +88,66 @@ begin
       end;
     end;
   end;
-  AssignBitmapBinary();
+end;
+
+procedure TFormUtama.ButtonColorClick(Sender: TObject);
+var
+  x, y : integer;
+begin
+  for y := 0 to ImageSource.Height-1 do
+  begin
+    for x := 0 to ImageSource.Width-1 do
+    begin
+      ImageSource.Canvas.Pixels[x, y] := RGB(bitmapR[x, y], bitmapG[x, y], bitmapB[x, y]);
+    end;
+  end;
+  colorMode := True;
+  LabelImage.Caption := 'Colorful';
+end;
+
+procedure TFormUtama.ButtonBinaryClick(Sender: TObject);
+var
+  x, y : integer;
+  gray : byte;
+begin
+  for y := 0 to ImageSource.Height-1 do
+  begin
+    for x := 0 to ImageSource.Width-1 do
+    begin
+      gray := (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
+
+      if gray <= TrackBarBinary.Position then
+        ImageQuantify.Canvas.Pixels[x, y] := RGB(0, 0, 0)
+      else
+        ImageQuantify.Canvas.Pixels[x, y] := RGB(255, 255, 255);
+
+    end;
+  end;
+end;
+
+procedure TFormUtama.ButtonGrayClick(Sender: TObject);
+var
+  x, y : integer;
+  gray : byte;
+begin
+  for y := 0 to ImageSource.Height-1 do
+  begin
+    for x := 0 to ImageSource.Width-1 do
+    begin
+      gray := (bitmapR[x, y] + bitmapG[x, y] + bitmapB[x, y]) div 3;
+      ImageSource.Canvas.Pixels[x, y] := RGB(gray, gray, gray);
+    end;
+  end;
+  colorMode := False;
+  LabelImage.Caption := 'Monochrome';
+end;
+
+procedure TFormUtama.ButtonSaveClick(Sender: TObject);
+begin
+  if SavePictureDialog1.Execute then
+  begin
+    ImageQuantify.Picture.SaveToFile(SavePictureDialog1.FileName);
+  end;
 end;
 
 procedure TFormUtama.TrackBarGChange(Sender: TObject);
@@ -106,28 +168,6 @@ end;
 procedure TFormUtama.TrackBarContrastChange(Sender: TObject);
 begin
   LabelP.Caption := IntToStr(TrackBarContrast.Position);
-end;
-
-procedure TFormUtama.AssignBitmapBinary();
-var
-  x, y, threshold, gray : integer;
-begin
-  threshold := TrackBarBinary.Position;
-  for y := 0 to ImageSource.Height-1 do
-  begin
-    for x := 0 to ImageSource.Width-1 do
-    begin
-      gray := (bitmapR[x,y] + bitmapG[x,y] + bitmapB[x,y]) div 3;
-      if gray <= threshold then
-      begin
-        bitmapBinary[x,y] := false;
-      end
-      else
-      begin
-        bitmapBinary[x,y] := true;
-      end;
-    end;
-  end;
 end;
 
 end.
