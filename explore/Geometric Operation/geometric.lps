@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="11"/>
+    <BuildModes Active="Default"/>
+    <Units Count="2">
+      <Unit0>
+        <Filename Value="geometric.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="20"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="utama.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FormUtama"/>
+        <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="20"/>
+        <CursorPos X="6" Y="50"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit1>
+    </Units>
+    <JumpHistory Count="9" HistoryIndex="8">
+      <Position1>
+        <Filename Value="utama.pas"/>
+        <Caret Line="23" Column="73"/>
+      </Position1>
+      <Position2>
+        <Filename Value="utama.pas"/>
+        <Caret Line="27" Column="73"/>
+      </Position2>
+      <Position3>
+        <Filename Value="utama.pas"/>
+        <Caret Line="28" Column="73"/>
+      </Position3>
+      <Position4>
+        <Filename Value="utama.pas"/>
+        <Caret Line="30" Column="73"/>
+      </Position4>
+      <Position5>
+        <Filename Value="utama.pas"/>
+        <Caret Line="34" Column="60" TopLine="10"/>
+      </Position5>
+      <Position6>
+        <Filename Value="utama.pas"/>
+        <Caret Line="35" Column="60" TopLine="10"/>
+      </Position6>
+      <Position7>
+        <Filename Value="utama.pas"/>
+        <Caret Line="36" Column="60" TopLine="10"/>
+      </Position7>
+      <Position8>
+        <Filename Value="utama.pas"/>
+        <Caret Line="47" Column="6" TopLine="19"/>
+      </Position8>
+      <Position9>
+        <Filename Value="utama.pas"/>
+        <Caret Line="49" Column="6" TopLine="20"/>
+      </Position9>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes Count="0" ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>

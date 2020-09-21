@@ -1,0 +1,60 @@
+object FormUtama: TFormUtama
+  Left = 454
+  Height = 661
+  Top = 176
+  Width = 1129
+  Caption = 'Geometric Transformation'
+  ClientHeight = 661
+  ClientWidth = 1129
+  DesignTimePPI = 144
+  LCLVersion = '2.0.6.0'
+  object ButtonLoadImage: TButton
+    Left = 32
+    Height = 38
+    Top = 24
+    Width = 113
+    Caption = 'Load Image'
+    OnClick = ButtonLoadImageClick
+    TabOrder = 0
+  end
+  object ButtonFlipHorizontal: TButton
+    Left = 32
+    Height = 38
+    Top = 80
+    Width = 113
+    Caption = 'X Flip'
+    TabOrder = 1
+  end
+  object ButtonFlipVertical: TButton
+    Left = 168
+    Height = 38
+    Top = 80
+    Width = 113
+    Caption = 'Y Flip'
+    TabOrder = 2
+  end
+  object ImageSource: TImage
+    Left = 32
+    Height = 135
+    Top = 240
+    Width = 135
+    AutoSize = True
+    Center = True
+  end
+  object ImageResult: TImage
+    Left = 560
+    Height = 135
+    Top = 24
+    Width = 135
+    AutoSize = True
+    Center = True
+  end
+  object OpenPictureDialog1: TOpenPictureDialog
+    left = 350
+    top = 92
+  end
+  object SavePictureDialog1: TSavePictureDialog
+    left = 350
+    top = 32
+  end
+end
