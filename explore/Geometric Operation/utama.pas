@@ -13,9 +13,11 @@ type
   { TFormUtama }
 
   TFormUtama = class(TForm)
+    ButtonReplicate: TButton;
     ButtonFlipVertical: TButton;
     ButtonFlipHorizontal: TButton;
     ButtonLoadImage: TButton;
+    EditScale: TEdit;
     ImageSource: TImage;
     ImageResult: TImage;
     OpenPictureDialog1: TOpenPictureDialog;
@@ -23,6 +25,7 @@ type
     procedure ButtonFlipHorizontalClick(Sender: TObject);
     procedure ButtonFlipVerticalClick(Sender: TObject);
     procedure ButtonLoadImageClick(Sender: TObject);
+    procedure ButtonReplicateClick(Sender: TObject);
   private
     procedure ShowTransformImage();
     procedure SaveTransformImage();
@@ -73,6 +76,35 @@ begin
   end;
 end;
 
+procedure TFormUtama.ButtonReplicateClick(Sender: TObject);
+var
+  scaleCoef: integer;
+  tempPosX, tempPosY: integer;
+  kY, kX, x, y: integer;
+begin
+  scaleCoef:= StrToInt(EditScale.Text);
+  ImageResult.Width:= initialWidth * scaleCoef;
+  ImageResult.Height:= initialHeight * scaleCoef;
+  tempPosX:= 0;
+  tempPosY:= 0;
+  for y:= 0 to initialHeight-1 do
+  begin
+    for x:= 0 to initialWidth-1 do
+    begin
+      for kY:= 0 to scaleCoef-1 do
+      begin
+        for kX:= 0 to scaleCoef-1 do
+        begin
+          ImageResult.Canvas.Pixels[tempPosX+kX, tempPosY+kY]:= RGB(bitmapR[x, y], bitmapG[x, y], bitmapB[x, y]);
+        end;
+      end;
+      tempPosX:= tempPosX + scaleCoef;
+    end;
+    tempPosX:= 0;
+    tempPosY:= tempPosY + scaleCoef;
+  end;
+end;
+
 procedure TFormUtama.ShowTransformImage();
 var
   x, y: integer;
@@ -81,12 +113,12 @@ begin
   ImageResult.Height:= initialHeight;
 
   for y:= 0 to initialHeight-1 do
+  begin
+    for x:= 0 to initialWidth-1 do
     begin
-      for x:= 0 to initialWidth-1 do
-      begin
-        ImageResult.Canvas.Pixels[x, y]:= RGB(bitmapTR[x, y], bitmapTG[x, y], bitmapTB[x, y])
-      end;
+      ImageResult.Canvas.Pixels[x, y]:= RGB(bitmapTR[x, y], bitmapTG[x, y], bitmapTB[x, y]);
     end;
+  end;
 end;
 
 procedure TFormUtama.SaveTransformImage();

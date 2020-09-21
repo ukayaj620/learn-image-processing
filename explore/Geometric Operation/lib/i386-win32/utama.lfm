@@ -1,10 +1,10 @@
 object FormUtama: TFormUtama
   Left = 454
-  Height = 661
+  Height = 721
   Top = 176
   Width = 1129
   Caption = 'Geometric Transformation'
-  ClientHeight = 661
+  ClientHeight = 721
   ClientWidth = 1129
   DesignTimePPI = 144
   LCLVersion = '2.0.6.0'
@@ -50,6 +50,22 @@ object FormUtama: TFormUtama
     Width = 135
     AutoSize = True
     Center = True
+  end
+  object ButtonReplicate: TButton
+    Left = 32
+    Height = 38
+    Top = 136
+    Width = 113
+    Caption = 'Replicate'
+    OnClick = ButtonReplicateClick
+    TabOrder = 3
+  end
+  object EditScale: TEdit
+    Left = 168
+    Height = 33
+    Top = 141
+    Width = 113
+    TabOrder = 4
   end
   object OpenPictureDialog1: TOpenPictureDialog
     left = 350
