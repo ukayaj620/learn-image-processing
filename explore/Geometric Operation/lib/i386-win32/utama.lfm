@@ -23,6 +23,7 @@ object FormUtama: TFormUtama
     Top = 80
     Width = 113
     Caption = 'X Flip'
+    OnClick = ButtonFlipHorizontalClick
     TabOrder = 1
   end
   object ButtonFlipVertical: TButton
@@ -31,6 +32,7 @@ object FormUtama: TFormUtama
     Top = 80
     Width = 113
     Caption = 'Y Flip'
+    OnClick = ButtonFlipVerticalClick
     TabOrder = 2
   end
   object ImageSource: TImage
