@@ -13,6 +13,7 @@ type
   { TFormUtama }
 
   TFormUtama = class(TForm)
+    ButtonInterpolation: TButton;
     ButtonReplicate: TButton;
     ButtonFlipVertical: TButton;
     ButtonFlipHorizontal: TButton;
@@ -24,6 +25,7 @@ type
     SavePictureDialog1: TSavePictureDialog;
     procedure ButtonFlipHorizontalClick(Sender: TObject);
     procedure ButtonFlipVerticalClick(Sender: TObject);
+    procedure ButtonInterpolationClick(Sender: TObject);
     procedure ButtonLoadImageClick(Sender: TObject);
     procedure ButtonReplicateClick(Sender: TObject);
   private
@@ -168,6 +170,62 @@ begin
   end;
   SaveTransformImage();
   ShowTransformImage();
+end;
+
+procedure TFormUtama.ButtonInterpolationClick(Sender: TObject);
+var
+  x, y, i: integer;
+  stepR, stepG, stepB: integer;
+  scaleCoef: integer;
+  R, G, B: byte;
+  R1, R2, G1, G2, B1, B2: integer;
+begin
+  scaleCoef:= StrToInt(EditScale.Text);
+  ImageResult.Width:= initialWidth * scaleCoef;
+  ImageResult.Height:= initialHeight * scaleCoef;
+
+  for y:= 0 to initialHeight-1 do
+  begin
+    for x:= 0 to initialWidth-1 do
+    begin
+      stepR:= round((bitmapR[x+1, y] - bitmapR[x, y])/scaleCoef);
+      stepG:= round((bitmapG[x+1, y] - bitmapG[x, y])/scaleCoef);
+      stepB:= round((bitmapB[x+1, y] - bitmapB[x, y])/scaleCoef);
+      ImageResult.Canvas.Pixels[x*scaleCoef, y*scaleCoef]:= RGB(bitmapR[x, y], bitmapG[x, y], bitmapB[x, y]);
+      for i:= 1 to scaleCoef-1 do
+      begin
+        R:= bitmapR[x, y] + (i * stepR);
+        G:= bitmapG[x, y] + (i * stepG);
+        B:= bitmapB[x, y] + (i * stepB);
+        ImageResult.Canvas.Pixels[x*scaleCoef+i, y*scaleCoef]:= RGB(R, G, B);
+      end;
+    end;
+  end;
+  for x:= 0 to initialWidth*scaleCoef-1 do
+  begin
+    for y:= 0 to initialHeight-1 do
+    begin
+      R1:= Red(ImageResult.Canvas.Pixels[x, y*scaleCoef]);
+      R2:= Red(ImageResult.Canvas.Pixels[x, (y+1)*scaleCoef]);
+
+      G1:= Green(ImageResult.Canvas.Pixels[x, y*scaleCoef]);
+      G2:= Green(ImageResult.Canvas.Pixels[x, (y+1)*scaleCoef]);
+
+      B1:= Blue(ImageResult.Canvas.Pixels[x, y*scaleCoef]);
+      B2:= Blue(ImageResult.Canvas.Pixels[x, (y+1)*scaleCoef]);
+
+      stepR:= round((R2 - R1)/scaleCoef);
+      stepG:= round((G2 - G1)/scaleCoef);
+      stepB:= round((B2 - B1)/scaleCoef);
+      for i:= 1 to scaleCoef-1 do
+      begin
+        R:= R1 + (i * stepR);
+        G:= G1 + (i * stepG);
+        B:= B1 + (i * stepB);
+        ImageResult.Canvas.Pixels[x, y*scaleCoef+i]:= RGB(R, G, B);
+      end;
+    end;
+  end;
 end;
 
 end.

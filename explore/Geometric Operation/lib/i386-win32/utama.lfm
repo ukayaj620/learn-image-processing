@@ -1,11 +1,11 @@
 object FormUtama: TFormUtama
-  Left = 454
-  Height = 721
-  Top = 176
-  Width = 1129
+  Left = 359
+  Height = 809
+  Top = 83
+  Width = 1181
   Caption = 'Geometric Transformation'
-  ClientHeight = 721
-  ClientWidth = 1129
+  ClientHeight = 809
+  ClientWidth = 1181
   DesignTimePPI = 144
   LCLVersion = '2.0.6.0'
   object ButtonLoadImage: TButton
@@ -66,6 +66,15 @@ object FormUtama: TFormUtama
     Top = 141
     Width = 113
     TabOrder = 4
+  end
+  object ButtonInterpolation: TButton
+    Left = 32
+    Height = 38
+    Top = 189
+    Width = 113
+    Caption = 'Interpolation'
+    OnClick = ButtonInterpolationClick
+    TabOrder = 5
   end
   object OpenPictureDialog1: TOpenPictureDialog
     left = 350
