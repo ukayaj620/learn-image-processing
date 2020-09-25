@@ -24,6 +24,7 @@ type
     OpenPictureDialog1: TOpenPictureDialog;
     SavePictureDialog1: TSavePictureDialog;
     procedure ButtonLoadImageClick(Sender: TObject);
+    procedure ButtonMeanConvolutionClick(Sender: TObject);
     procedure ButtonMeanCorrelationClick(Sender: TObject);
   private
     procedure InitKernelMean(size: integer);
@@ -72,6 +73,70 @@ begin
       end;
     end;
   end;
+end;
+
+procedure TForm1.ButtonMeanConvolutionClick(Sender: TObject);
+var
+  x, y, xK, yK: integer;
+  cBR, cBG, cBB: array[0..1000, 0..1000] of integer;
+  cR, cG, cB: double;
+  size: integer;
+begin
+  ImageResult.Width:= initWidth;
+  ImageResult.Height:= initHeight;
+  size:= StrToInt(EditKernel.Text);
+  InitKernelMean(size);
+  PaddingBitmap();
+
+  for y:= 1 to initHeight do
+  begin
+    for x:= 1 to initWidth do
+    begin
+      cBR[x-1, y-1]:= 0;
+      cBG[x-1, y-1]:= 0;
+      cBB[x-1, y-1]:= 0;
+      cR:= 0;
+      cG:= 0;
+      cB:= 0;
+      for yK:= 1 to size do
+      begin
+        for xK:= 1 to size do
+        begin
+          cR:= cR + (paddingR[x-(xK-size+1), y-(yK-size+1)] * kernelMean[xK, yK]);
+          cG:= cG + (paddingG[x-(xK-size+1), y-(yK-size+1)] * kernelMean[xK, yK]);
+          cB:= cB + (paddingB[x-(xK-size+1), y-(yK-size+1)] * kernelMean[xK, yK]);
+        end;
+      end;
+
+      cBR[x-1, y-1]:= Round(cR);
+      cBG[x-1, y-1]:= Round(cG);
+      cBB[x-1, y-1]:= Round(cB);
+
+      if cBR[x-1, y-1] < 0 then
+        cBR[x-1, y-1]:= 0
+      else if cBR[x-1, y-1] > 255 then
+        cBR[x-1, y-1]:= 255;
+
+      if cBG[x-1, y-1] < 0 then
+        cBG[x-1, y-1]:= 0
+      else if cBG[x-1, y-1] > 255 then
+        cBG[x-1, y-1]:= 255;
+
+      if cBB[x-1, y-1] < 0 then
+        cBB[x-1, y-1]:= 0
+      else if cBB[x-1, y-1] > 255 then
+        cBB[x-1, y-1]:= 255;
+    end;
+  end;
+
+  for y:= 0 to initHeight-1 do
+  begin
+    for x:= 0 to initWidth-1 do
+    begin
+      ImageResult.Canvas.Pixels[x, y]:= RGB(cBR[x, y], cBG[x, y], cBB[x, y]);
+    end;
+  end;
+
 end;
 
 procedure TForm1.PaddingBitmap();
