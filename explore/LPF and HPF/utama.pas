@@ -22,6 +22,7 @@ type
     Label1: TLabel;
     Label2: TLabel;
     OpenPictureDialog1: TOpenPictureDialog;
+    RadioPassFilter: TRadioGroup;
     SavePictureDialog1: TSavePictureDialog;
     procedure ButtonLoadImageClick(Sender: TObject);
     procedure ButtonMeanConvolutionClick(Sender: TObject);
@@ -29,6 +30,7 @@ type
   private
     procedure InitKernelMean(size: integer);
     procedure PaddingBitmap();
+    function Constrain(value: integer): byte;
   public
 
   end;
@@ -48,9 +50,17 @@ uses
 var
   bitmapR, bitmapG, bitmapB: array[0..1000, 0..1000] of byte;
   paddingR, paddingG, paddingB: array[0..1000, 0..1000] of double;
-  kernelMean: array[1..100, 1..100] of double;
+  kernelMean: array[0..100, 0..100] of double;
 
   initWidth, initHeight: integer;
+
+
+function TForm1.Constrain(value: integer): byte;
+begin
+  if value < 0 then Constrain := 0
+  else if value > 255 then Constrain := 255
+  else Constrain := value;
+end;
 
 procedure TForm1.ButtonLoadImageClick(Sender: TObject);
 var
@@ -108,24 +118,9 @@ begin
         end;
       end;
 
-      cBR[x-1, y-1]:= Round(cR);
-      cBG[x-1, y-1]:= Round(cG);
-      cBB[x-1, y-1]:= Round(cB);
-
-      if cBR[x-1, y-1] < 0 then
-        cBR[x-1, y-1]:= 0
-      else if cBR[x-1, y-1] > 255 then
-        cBR[x-1, y-1]:= 255;
-
-      if cBG[x-1, y-1] < 0 then
-        cBG[x-1, y-1]:= 0
-      else if cBG[x-1, y-1] > 255 then
-        cBG[x-1, y-1]:= 255;
-
-      if cBB[x-1, y-1] < 0 then
-        cBB[x-1, y-1]:= 0
-      else if cBB[x-1, y-1] > 255 then
-        cBB[x-1, y-1]:= 255;
+      cBR[x-1, y-1]:= Constrain(Round(cR));
+      cBG[x-1, y-1]:= Constrain(Round(cG));
+      cBB[x-1, y-1]:= Constrain(Round(cB));
     end;
   end;
 
@@ -145,26 +140,26 @@ var
 begin
   for y:= 0 to initHeight+1 do
   begin
-    paddingR[0, y]:= 128;
-    paddingR[initWidth+1, y]:= 128;
+    paddingR[0, y]:= 255;
+    paddingR[initWidth+1, y]:= 255;
 
-    paddingG[0, y]:= 0;
-    paddingG[initWidth+1, y]:= 128;
+    paddingG[0, y]:= 255;
+    paddingG[initWidth+1, y]:= 255;
 
-    paddingB[0, y]:= 0;
-    paddingB[initWidth+1, y]:= 128;
+    paddingB[0, y]:= 255;
+    paddingB[initWidth+1, y]:= 255;
   end;
 
   for x:= 0 to initWidth+1 do
   begin
-    paddingR[x, 0]:= 128;
-    paddingR[x, initHeight+1]:= 128;
+    paddingR[x, 0]:= 255;
+    paddingR[x, initHeight+1]:= 255;
 
-    paddingG[x, 0]:= 128;
-    paddingG[x, initHeight+1]:= 128;
+    paddingG[x, 0]:= 255;
+    paddingG[x, initHeight+1]:= 255;
 
-    paddingB[x, 0]:= 128;
-    paddingB[x, initHeight+1]:= 128;
+    paddingB[x, 0]:= 255;
+    paddingB[x, initHeight+1]:= 255;
   end;
 
   for y:= 1 to initHeight do
@@ -182,12 +177,26 @@ procedure TForm1.InitKernelMean(size: integer);
 var
   x, y: integer;
 begin
-  for y:= 1 to size do
+  if RadioPassFilter.ItemIndex = 1 then
   begin
-    for x:= 1 to size do
+    for y:= 1 to size do
     begin
-      kernelMean[x, y]:= 1 / (size*size);
+      for x:= 1 to size do
+      begin
+        kernelMean[x, y]:= 1 / (size*size);
+      end;
     end;
+  end
+  else if RadioPassFilter.ItemIndex = 0 then
+  begin
+    for y:= 1 to size do
+    begin
+      for x:= 1 to size do
+      begin
+        kernelMean[x, y]:= -1;
+      end;
+    end;
+    kernelMean[size div 2, size div 2]:= (size*size) - 1;
   end;
 end;
 
@@ -208,9 +217,6 @@ begin
   begin
     for x:= 1 to initWidth do
     begin
-      cBR[x-1, y-1]:= 0;
-      cBG[x-1, y-1]:= 0;
-      cBB[x-1, y-1]:= 0;
       cR:= 0;
       cG:= 0;
       cB:= 0;
@@ -224,24 +230,9 @@ begin
         end;
       end;
 
-      cBR[x-1, y-1]:= Round(cR);
-      cBG[x-1, y-1]:= Round(cG);
-      cBB[x-1, y-1]:= Round(cB);
-
-      if cBR[x-1, y-1] < 0 then
-        cBR[x-1, y-1]:= 0
-      else if cBR[x-1, y-1] > 255 then
-        cBR[x-1, y-1]:= 255;
-
-      if cBG[x-1, y-1] < 0 then
-        cBG[x-1, y-1]:= 0
-      else if cBG[x-1, y-1] > 255 then
-        cBG[x-1, y-1]:= 255;
-
-      if cBB[x-1, y-1] < 0 then
-        cBB[x-1, y-1]:= 0
-      else if cBB[x-1, y-1] > 255 then
-        cBB[x-1, y-1]:= 255;
+      cBR[x-1, y-1]:= Constrain(Round(cR));
+      cBG[x-1, y-1]:= Constrain(Round(cG));
+      cBB[x-1, y-1]:= Constrain(Round(cB));
     end;
   end;
 
