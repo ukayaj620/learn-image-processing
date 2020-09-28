@@ -167,7 +167,8 @@ begin
       for x:= 0 to initWidth-1 do
       begin
         ImageResult.Canvas.Pixels[x, y]:= RGB(cGrayB[x, y], cGrayB[x, y], cGrayB[x, y]);
-        ImageSketch.Canvas.Pixels[x, y]:= RGB(255-cGrayB[x, y], 255-cGrayB[x, y], 255-cGrayB[x, y]);
+        if RadioPassFilter.ItemIndex <> 2 then
+           ImageSketch.Canvas.Pixels[x, y]:= RGB(255-cGrayB[x, y], 255-cGrayB[x, y], 255-cGrayB[x, y]);
       end;
     end;
   end;
@@ -284,43 +285,75 @@ end;
 procedure TForm1.ButtonMeanCorrelationClick(Sender: TObject);
 var
   x, y, xK, yK: integer;
-  cBR, cBG, cBB: array[0..1000, 0..1000] of integer;
-  cR, cG, cB: double;
+  cBR, cBG, cBB, cGrayB: array[0..1000, 0..1000] of integer;
+  cR, cG, cB, cGray: double;
 begin
   ImageResult.Width:= initWidth;
   ImageResult.Height:= initHeight;
   k:= StrToInt(EditKernel.Text);
+  kHalf:= k div 2;
   InitKernelMean();
   PaddingBitmap();
 
-  for y:= 1 to initHeight do
+  if RadioColorMode.ItemIndex = 1 then
   begin
-    for x:= 1 to initWidth do
+    for y:= kHalf to (initHeight+kHalf) do
     begin
-      cR:= 0;
-      cG:= 0;
-      cB:= 0;
-      for yK:= 1 to k do
+      for x:= kHalf to (initWidth+kHalf) do
       begin
-        for xK:= 1 to k do
+        cR:= 0;
+        cG:= 0;
+        cB:= 0;
+        for yK:= 1 to k do
         begin
-          cR:= cR + (paddingR[x+(xK-k+1), y+(yK-k+1)] * kernelMean[xK, yK]);
-          cG:= cG + (paddingG[x+(xK-k+1), y+(yK-k+1)] * kernelMean[xK, yK]);
-          cB:= cB + (paddingB[x+(xK-k+1), y+(yK-k+1)] * kernelMean[xK, yK]);
+          for xK:= 1 to k do
+          begin
+            cR:= cR + (paddingR[x+(xK- k + kHalf), y+(yK - k + kHalf)] * kernelMean[xK, yK]);
+            cG:= cG + (paddingG[x+(xK- k + kHalf), y+(yK - k + kHalf)] * kernelMean[xK, yK]);
+            cB:= cB + (paddingB[x+(xK- k + kHalf), y+(yK - k + kHalf)] * kernelMean[xK, yK]);
+          end;
         end;
+
+        cBR[x-kHalf, y-kHalf]:= Constrain(Round(cR));
+        cBG[x-kHalf, y-kHalf]:= Constrain(Round(cG));
+        cBB[x-kHalf, y-kHalf]:= Constrain(Round(cB));
       end;
-
-      cBR[x-1, y-1]:= Constrain(Round(cR));
-      cBG[x-1, y-1]:= Constrain(Round(cG));
-      cBB[x-1, y-1]:= Constrain(Round(cB));
     end;
-  end;
 
-  for y:= 0 to initHeight-1 do
-  begin
-    for x:= 0 to initWidth-1 do
+    for y:= 0 to initHeight-1 do
     begin
-      ImageResult.Canvas.Pixels[x, y]:= RGB(cBR[x, y], cBG[x, y], cBB[x, y]);
+      for x:= 0 to initWidth-1 do
+      begin
+        ImageResult.Canvas.Pixels[x, y]:= RGB(cBR[x, y], cBG[x, y], cBB[x, y]);
+      end;
+    end;
+
+  end
+  else if RadioColorMode.ItemIndex = 0 then
+  begin
+    for y:= kHalf to (initHeight+kHalf) do
+    begin
+      for x:= kHalf to (initWidth+kHalf) do
+      begin
+        cGray:= 0;
+        for yK:= 1 to k do
+        begin
+          for xK:= 1 to k do
+          begin
+            cGray:= cGray + (paddingGray[x+(xK- k + kHalf), y+(yK - k + kHalf)] * kernelMean[xK, yK]);
+          end;
+        end;
+
+        cGrayB[x-kHalf, y-kHalf]:= Constrain(Round(cGray));
+      end;
+    end;
+
+    for y:= 0 to initHeight-1 do
+    begin
+      for x:= 0 to initWidth-1 do
+      begin
+        ImageResult.Canvas.Pixels[x, y]:= RGB(cGrayB[x, y], cGrayB[x, y], cGrayB[x, y]);
+      end;
     end;
   end;
 
