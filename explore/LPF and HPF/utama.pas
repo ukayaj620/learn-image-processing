@@ -30,7 +30,7 @@ type
     procedure ButtonMeanConvolutionClick(Sender: TObject);
     procedure ButtonMeanCorrelationClick(Sender: TObject);
   private
-    procedure InitKernelMean(size: integer);
+    procedure InitKernelMean();
     procedure PaddingBitmap();
     function Constrain(value: integer): byte;
   public
@@ -47,7 +47,7 @@ implementation
 { TForm1 }
 
 uses
-  windows, math;
+  windows;
 
 var
   bitmapR, bitmapG, bitmapB: array[0..1000, 0..1000] of byte;
@@ -57,6 +57,7 @@ var
   kernelMean: array[0..100, 0..100] of double;
 
   initWidth, initHeight: integer;
+  k, kHalf: integer;
 
 
 function TForm1.Constrain(value: integer): byte;
@@ -96,7 +97,6 @@ var
   x, y, xK, yK: integer;
   cBR, cBG, cBB, cGrayB: array[0..1000, 0..1000] of integer;
   cR, cG, cB, cGray: double;
-  size: integer;
 begin
   ImageResult.Width:= initWidth;
   ImageResult.Height:= initHeight;
@@ -104,32 +104,33 @@ begin
   ImageSketch.Width:= initWidth;
   ImageSketch.Height:= initHeight;
 
-  size:= StrToInt(EditKernel.Text);
-  InitKernelMean(size);
+  k:= StrToInt(EditKernel.Text);
+  kHalf:= k div 2;
+  InitKernelMean();
   PaddingBitmap();
 
   if RadioColorMode.ItemIndex = 1 then
   begin
-    for y:= 1 to initHeight do
+    for y:= kHalf to (initHeight+kHalf) do
     begin
-      for x:= 1 to initWidth do
+      for x:= kHalf to (initWidth+kHalf) do
       begin
         cR:= 0;
         cG:= 0;
         cB:= 0;
-        for yK:= 1 to size do
+        for yK:= 1 to k do
         begin
-          for xK:= 1 to size do
+          for xK:= 1 to k do
           begin
-            cR:= cR + (paddingR[x-(xK-size+1), y-(yK-size+1)] * kernelMean[xK, yK]);
-            cG:= cG + (paddingG[x-(xK-size+1), y-(yK-size+1)] * kernelMean[xK, yK]);
-            cB:= cB + (paddingB[x-(xK-size+1), y-(yK-size+1)] * kernelMean[xK, yK]);
+            cR:= cR + (paddingR[x-(xK- k + kHalf), y-(yK - k + kHalf)] * kernelMean[xK, yK]);
+            cG:= cG + (paddingG[x-(xK- k + kHalf), y-(yK - k + kHalf)] * kernelMean[xK, yK]);
+            cB:= cB + (paddingB[x-(xK- k + kHalf), y-(yK - k + kHalf)] * kernelMean[xK, yK]);
           end;
         end;
 
-        cBR[x-1, y-1]:= Constrain(Round(cR));
-        cBG[x-1, y-1]:= Constrain(Round(cG));
-        cBB[x-1, y-1]:= Constrain(Round(cB));
+        cBR[x-kHalf, y-kHalf]:= Constrain(Round(cR));
+        cBG[x-kHalf, y-kHalf]:= Constrain(Round(cG));
+        cBB[x-kHalf, y-kHalf]:= Constrain(Round(cB));
       end;
     end;
 
@@ -140,23 +141,24 @@ begin
         ImageResult.Canvas.Pixels[x, y]:= RGB(cBR[x, y], cBG[x, y], cBB[x, y]);
       end;
     end;
+
   end
   else if RadioColorMode.ItemIndex = 0 then
   begin
-    for y:= 1 to initHeight do
+    for y:= kHalf to (initHeight+kHalf) do
     begin
-      for x:= 1 to initWidth do
+      for x:= kHalf to (initWidth+kHalf) do
       begin
         cGray:= 0;
-        for yK:= 1 to size do
+        for yK:= 1 to k do
         begin
-          for xK:= 1 to size do
+          for xK:= 1 to k do
           begin
-            cGray:= cGray + (paddingGray[x-(xK-size+1), y-(yK-size+1)] * kernelMean[xK, yK]);
+            cGray:= cGray + (paddingGray[x-(xK- k + kHalf), y-(yK - k + kHalf)] * kernelMean[xK, yK]);
           end;
         end;
 
-        cGrayB[x-1, y-1]:= Constrain(Round(cGray));
+        cGrayB[x-kHalf, y-kHalf]:= Constrain(Round(cGray));
       end;
     end;
 
@@ -174,95 +176,108 @@ end;
 
 procedure TForm1.PaddingBitmap();
 var
-  x, y: integer;
-begin
+  x, y, z: integer;
+begin;
   if RadioColorMode.ItemIndex = 1 then
   begin
-    for y:= 0 to initHeight+1 do
+    for y:= 0 to initHeight+kHalf  do
     begin
-      paddingR[0, y]:= 255;
-      paddingR[initWidth+1, y]:= 255;
-
-      paddingG[0, y]:= 255;
-      paddingG[initWidth+1, y]:= 255;
-
-      paddingB[0, y]:= 255;
-      paddingB[initWidth+1, y]:= 255;
-    end;
-
-    for x:= 0 to initWidth+1 do
-    begin
-      paddingR[x, 0]:= 255;
-      paddingR[x, initHeight+1]:= 255;
-
-      paddingG[x, 0]:= 255;
-      paddingG[x, initHeight+1]:= 255;
-
-      paddingB[x, 0]:= 255;
-      paddingB[x, initHeight+1]:= 255;
-    end;
-
-    for y:= 1 to initHeight do
-    begin
-      for x:= 1 to initWidth do
+      for z:= 0 to kHalf-1 do
       begin
-        paddingR[x, y]:= bitmapR[x-1, y-1];
-        paddingG[x, y]:= bitmapG[x-1, y-1];
-        paddingB[x, y]:= bitmapB[x-1, y-1];
+        paddingR[0+z, y]:= 255;
+        paddingR[initWidth+kHalf+z, y]:= 255;
+
+        paddingG[0+z, y]:= 255;
+        paddingG[initWidth+kHalf+z, y]:= 255;
+
+        paddingB[0+z, y]:= 255;
+        paddingB[initWidth+kHalf+z, y]:= 255;
+      end;
+    end;
+
+    for x:= 0 to initWidth+kHalf do
+    begin
+      for z:= 0 to kHalf-1 do
+      begin
+        paddingR[x, 0+z]:= 255;
+        paddingR[x, initHeight+kHalf+z]:= 255;
+
+        paddingG[x, 0+z]:= 255;
+        paddingG[x, initHeight+kHalf+z]:= 255;
+
+        paddingB[x, 0+z]:= 255;
+        paddingB[x, initHeight+kHalf+z]:= 255;
+      end;
+    end;
+
+    for y:= kHalf to (initHeight+kHalf-1) do
+    begin
+      for x:= kHalf to (initWidth+kHalf-1) do
+      begin
+        paddingR[x, y]:= bitmapR[x-kHalf, y-kHalf];
+        paddingG[x, y]:= bitmapG[x-kHalf, y-kHalf];
+        paddingB[x, y]:= bitmapB[x-kHalf, y-kHalf];
       end;
     end;
   end
   else if RadioColorMode.ItemIndex = 0 then
   begin
-    for y:= 0 to initHeight+1 do
+    for y:= 0 to initHeight+kHalf do
     begin
-      paddingGray[0, y]:= 127;
-      paddingGray[initWidth+1, y]:= 127;
-    end;
-
-    for x:= 0 to initWidth+1 do
-    begin
-      paddingGray[x, 0]:= 127;
-      paddingGray[x, initHeight+1]:= 127;
-    end;
-
-    for y:= 1 to initHeight do
-    begin
-      for x:= 1 to initWidth do
+      for z:= 0 to kHalf-1 do
       begin
-        paddingGray[x, y]:= bitmapR[x-1, y-1];
+        paddingGray[0+z, y]:= 255;
+        paddingGray[initWidth+kHalf+z, y]:= 255;
+      end;
+    end;
+
+    for x:= 0 to initWidth+kHalf do
+    begin
+      for z:= 0 to kHalf-1 do
+      begin
+        paddingGray[x, 0+z]:= 255;
+        paddingGray[x, initHeight+kHalf+z]:= 255;
+      end;
+    end;
+
+    for y:= kHalf to (initHeight+kHalf-1) do
+    begin
+      for x:= kHalf to (initWidth+kHalf-1) do
+      begin
+        paddingGray[x, y]:= bitmapGray[x-kHalf, y-kHalf];
       end;
     end;
   end;
+
 end;
 
-procedure TForm1.InitKernelMean(size: integer);
+procedure TForm1.InitKernelMean();
 var
   x, y: integer;
 begin
   if RadioPassFilter.ItemIndex = 2 then
   begin
-    for y:= 1 to size do
+    for y:= 1 to k do
     begin
-      for x:= 1 to size do
+      for x:= 1 to k do
       begin
-        kernelMean[x, y]:= 1 / (size*size);
+        kernelMean[x, y]:= 1 / (k*k);
       end;
     end;
   end
   else
   begin
-    for y:= 1 to size do
+    for y:= 1 to k do
     begin
-      for x:= 1 to size do
+      for x:= 1 to k do
       begin
         kernelMean[x, y]:= -1;
       end;
     end;
     if RadioPassFilter.ItemIndex = 0 then
-      kernelMean[size div 2, size div 2]:= (size*size) - 1
+      kernelMean[kHalf, kHalf]:= (k*k) - 1
     else if RadioPassFilter.ItemIndex = 1 then
-      kernelMean[size div 2, size div 2]:= (size*size);
+      kernelMean[kHalf, kHalf]:= (k*k);
   end;
 end;
 
@@ -271,12 +286,11 @@ var
   x, y, xK, yK: integer;
   cBR, cBG, cBB: array[0..1000, 0..1000] of integer;
   cR, cG, cB: double;
-  size: integer;
 begin
   ImageResult.Width:= initWidth;
   ImageResult.Height:= initHeight;
-  size:= StrToInt(EditKernel.Text);
-  InitKernelMean(size);
+  k:= StrToInt(EditKernel.Text);
+  InitKernelMean();
   PaddingBitmap();
 
   for y:= 1 to initHeight do
@@ -286,13 +300,13 @@ begin
       cR:= 0;
       cG:= 0;
       cB:= 0;
-      for yK:= 1 to size do
+      for yK:= 1 to k do
       begin
-        for xK:= 1 to size do
+        for xK:= 1 to k do
         begin
-          cR:= cR + (paddingR[x+(xK-size+1), y+(yK-size+1)] * kernelMean[xK, yK]);
-          cG:= cG + (paddingG[x+(xK-size+1), y+(yK-size+1)] * kernelMean[xK, yK]);
-          cB:= cB + (paddingB[x+(xK-size+1), y+(yK-size+1)] * kernelMean[xK, yK]);
+          cR:= cR + (paddingR[x+(xK-k+1), y+(yK-k+1)] * kernelMean[xK, yK]);
+          cG:= cG + (paddingG[x+(xK-k+1), y+(yK-k+1)] * kernelMean[xK, yK]);
+          cB:= cB + (paddingB[x+(xK-k+1), y+(yK-k+1)] * kernelMean[xK, yK]);
         end;
       end;
 
