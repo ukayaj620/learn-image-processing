@@ -9,7 +9,7 @@
         <Filename Value="lpf_hpf.lpr"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos Y="21"/>
+        <CursorPos X="63" Y="12"/>
         <UsageCount Value="53"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -20,8 +20,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="155"/>
-        <CursorPos X="104" Y="171"/>
+        <TopLine Value="145"/>
+        <CursorPos X="23" Y="164"/>
         <UsageCount Value="53"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>

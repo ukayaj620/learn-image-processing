@@ -353,6 +353,8 @@ begin
       for x:= 0 to initWidth-1 do
       begin
         ImageResult.Canvas.Pixels[x, y]:= RGB(cGrayB[x, y], cGrayB[x, y], cGrayB[x, y]);
+        if RadioPassFilter.ItemIndex <> 2 then
+           ImageSketch.Canvas.Pixels[x, y]:= RGB(255-cGrayB[x, y], 255-cGrayB[x, y], 255-cGrayB[x, y]);
       end;
     end;
   end;
