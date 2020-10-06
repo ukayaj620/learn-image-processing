@@ -40,11 +40,11 @@ object Form1: TForm1
     Width = 135
     AutoSize = True
   end
-  object RadioGroupEdgeDetector: TRadioGroup
-    Left = 240
+  object RadioGroupEdge: TRadioGroup
+    Left = 232
     Height = 158
-    Top = 16
-    Width = 198
+    Top = 8
+    Width = 238
     AutoFill = True
     Caption = 'Edge Detector'
     ChildSizing.LeftRightSpacing = 6
@@ -55,20 +55,22 @@ object Form1: TForm1
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
     ClientHeight = 128
-    ClientWidth = 194
+    ClientWidth = 234
     Items.Strings = (
       'Sobel'
-      'Robert'
       'Prewitt'
+      'Robert'
     )
+    OnSelectionChanged = RadioGroupEdgeSelectionChanged
     TabOrder = 2
   end
   object ButtonExecute: TButton
     Left = 536
     Height = 38
-    Top = 72
+    Top = 80
     Width = 113
     Caption = 'Execute'
+    OnClick = ButtonExecuteClick
     TabOrder = 3
   end
   object OpenPictureDialog1: TOpenPictureDialog
