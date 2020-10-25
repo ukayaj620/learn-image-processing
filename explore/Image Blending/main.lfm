@@ -1,0 +1,67 @@
+object FormMain: TFormMain
+  Left = 416
+  Height = 680
+  Top = 181
+  Width = 1232
+  Caption = 'Image Blending'
+  ClientHeight = 680
+  ClientWidth = 1232
+  DesignTimePPI = 144
+  LCLVersion = '2.0.6.0'
+  object ImageSource1: TImage
+    Left = 48
+    Height = 135
+    Top = 88
+    Width = 135
+    AutoSize = True
+  end
+  object ButtonLoadImage1: TButton
+    Left = 48
+    Height = 38
+    Top = 32
+    Width = 113
+    Caption = 'Load Image 1'
+    OnClick = ButtonLoadImage1Click
+    TabOrder = 0
+  end
+  object ButtonLoadImage2: TButton
+    Left = 424
+    Height = 38
+    Top = 32
+    Width = 113
+    Caption = 'Load Image 2'
+    OnClick = ButtonLoadImage2Click
+    TabOrder = 1
+  end
+  object ImageSource2: TImage
+    Left = 424
+    Height = 135
+    Top = 88
+    Width = 135
+    AutoSize = True
+  end
+  object ImageResult: TImage
+    Left = 792
+    Height = 135
+    Top = 88
+    Width = 135
+    AutoSize = True
+  end
+  object ButtonSave: TButton
+    Left = 792
+    Height = 38
+    Top = 32
+    Width = 113
+    Caption = 'Save Result'
+    OnClick = ButtonSaveClick
+    TabOrder = 2
+  end
+  object SavePictureDialog1: TSavePictureDialog
+    left = 1174
+    top = 28
+  end
+  object OpenPictureDialog1: TOpenPictureDialog
+    left = 1174
+    top = 96
+  end
+end
