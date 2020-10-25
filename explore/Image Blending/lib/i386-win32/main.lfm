@@ -2,10 +2,10 @@ object FormMain: TFormMain
   Left = 416
   Height = 680
   Top = 181
-  Width = 1232
+  Width = 1308
   Caption = 'Image Blending'
   ClientHeight = 680
-  ClientWidth = 1232
+  ClientWidth = 1308
   DesignTimePPI = 144
   LCLVersion = '2.0.6.0'
   object ImageSource1: TImage
@@ -55,6 +55,32 @@ object FormMain: TFormMain
     Caption = 'Save Result'
     OnClick = ButtonSaveClick
     TabOrder = 2
+  end
+  object TrackBarPercentage: TTrackBar
+    Left = 48
+    Height = 38
+    Top = 456
+    Width = 304
+    Max = 100
+    Position = 0
+    TabOrder = 3
+  end
+  object Label1: TLabel
+    Left = 48
+    Height = 25
+    Top = 424
+    Width = 191
+    Caption = 'Contribution Percentage'
+    ParentColor = False
+  end
+  object ButtonBlend: TButton
+    Left = 48
+    Height = 38
+    Top = 528
+    Width = 113
+    Caption = 'Blend'
+    OnClick = ButtonBlendClick
+    TabOrder = 4
   end
   object SavePictureDialog1: TSavePictureDialog
     left = 1174

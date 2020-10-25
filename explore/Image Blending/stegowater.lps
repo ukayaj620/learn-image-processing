@@ -8,26 +8,26 @@
       <Unit0>
         <Filename Value="stegowater.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="20"/>
+        <EditorIndex Value="1"/>
+        <CursorPos Y="21"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="main.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FormMain"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="67"/>
-        <CursorPos X="16" Y="95"/>
-        <UsageCount Value="20"/>
+        <TopLine Value="69"/>
+        <CursorPos X="3" Y="84"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
     </Units>
-    <JumpHistory Count="12" HistoryIndex="11">
+    <JumpHistory Count="22" HistoryIndex="21">
       <Position1>
         <Filename Value="main.pas"/>
       </Position1>
@@ -75,6 +75,46 @@
         <Filename Value="main.pas"/>
         <Caret Line="58" Column="18" TopLine="36"/>
       </Position12>
+      <Position13>
+        <Filename Value="main.pas"/>
+        <Caret Line="77" Column="53" TopLine="61"/>
+      </Position13>
+      <Position14>
+        <Filename Value="main.pas"/>
+        <Caret Line="78" Column="53" TopLine="62"/>
+      </Position14>
+      <Position15>
+        <Filename Value="main.pas"/>
+        <Caret Line="79" Column="53" TopLine="63"/>
+      </Position15>
+      <Position16>
+        <Filename Value="main.pas"/>
+        <Caret Line="86" Column="53" TopLine="65"/>
+      </Position16>
+      <Position17>
+        <Filename Value="main.pas"/>
+        <Caret Line="128" Column="16" TopLine="103"/>
+      </Position17>
+      <Position18>
+        <Filename Value="main.pas"/>
+        <Caret Line="130" TopLine="103"/>
+      </Position18>
+      <Position19>
+        <Filename Value="main.pas"/>
+        <Caret Line="85" Column="45" TopLine="73"/>
+      </Position19>
+      <Position20>
+        <Filename Value="main.pas"/>
+        <Caret Line="124" Column="46" TopLine="103"/>
+      </Position20>
+      <Position21>
+        <Filename Value="main.pas"/>
+        <Caret Line="90" Column="24" TopLine="72"/>
+      </Position21>
+      <Position22>
+        <Filename Value="main.pas"/>
+        <Caret Line="84" Column="3" TopLine="69"/>
+      </Position22>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
