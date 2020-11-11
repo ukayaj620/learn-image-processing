@@ -76,6 +76,7 @@ object FormMain: TFormMain
     ClientWidth = 274
     ColumnLayout = clVerticalThenHorizontal
     Columns = 2
+    ItemIndex = 0
     Items.Strings = (
       'Black (0)'
       'White (1)'

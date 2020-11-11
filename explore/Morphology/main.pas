@@ -120,7 +120,12 @@ begin
               isFirst:= false;
             end
             else
-              binary:= binary AND (BinaryBitmap[x+(xk-k+1), y+(yk-k+1)] = SE[xk, yk]);
+            begin
+              if RadioGroupObject.ItemIndex = 0 then
+                binary:= binary OR (BinaryBitmap[x+(xk-k+1), y+(yk-k+1)] = SE[xk, yk])
+              else
+                binary:= binary AND (BinaryBitmap[x+(xk-k+1), y+(yk-k+1)] = SE[xk, yk]);
+            end;
           end;
         end;
       end;
@@ -152,15 +157,31 @@ begin
     for x:= 1 to imageWidth do
     begin
       gray:= (Bitmap1[x, y].R + Bitmap1[x, y].G + Bitmap1[x, y].B) div 3;
-      if gray >= threshold then
+      if RadioGroupObject.ItemIndex = 1 then
       begin
-        BinaryBitmap[x, y]:= 1;
-        ImageResult.Canvas.Pixels[x-1, y-1]:= RGB(255, 255, 255);
+        if gray >= threshold then
+        begin
+          BinaryBitmap[x, y]:= 1;
+          ImageResult.Canvas.Pixels[x-1, y-1]:= RGB(255, 255, 255);
+        end
+        else
+        begin
+          BinaryBitmap[x, y]:= 0;
+          ImageResult.Canvas.Pixels[x-1, y-1]:= RGB(0, 0, 0);
+        end;
       end
       else
       begin
-        BinaryBitmap[x, y]:= 0;
-        ImageResult.Canvas.Pixels[x-1, y-1]:= RGB(0, 0, 0);
+        if gray <= threshold then
+        begin
+          BinaryBitmap[x, y]:= 1;
+          ImageResult.Canvas.Pixels[x-1, y-1]:= RGB(255, 255, 255);
+        end
+        else
+        begin
+          BinaryBitmap[x, y]:= 0;
+          ImageResult.Canvas.Pixels[x-1, y-1]:= RGB(0, 0, 0);
+        end;
       end;
     end;
   end;
@@ -204,7 +225,12 @@ begin
               isFirst:= false;
             end
             else
-              binary:= binary OR (BinaryBitmap[x+(xk-k+1), y+(yk-k+1)] = SE[xk, yk]);
+            begin
+              if RadioGroupObject.ItemIndex = 1 then
+                binary:= binary OR (BinaryBitmap[x+(xk-k+1), y+(yk-k+1)] = SE[xk, yk])
+              else
+                binary:= binary AND (BinaryBitmap[x+(xk-k+1), y+(yk-k+1)] = SE[xk, yk]);
+            end;
           end;
         end;
       end;
