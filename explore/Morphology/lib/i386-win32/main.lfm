@@ -14,6 +14,7 @@ object FormMain: TFormMain
     Top = 96
     Width = 113
     Caption = 'Dilasi'
+    OnClick = ButtonDilasiClick
     TabOrder = 0
   end
   object ButtonErosi: TButton

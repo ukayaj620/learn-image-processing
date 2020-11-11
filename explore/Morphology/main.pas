@@ -32,12 +32,13 @@ type
     SavePictureDialog1: TSavePictureDialog;
     TrackBar1: TTrackBar;
     procedure ButtonBinaryClick(Sender: TObject);
+    procedure ButtonDilasiClick(Sender: TObject);
     procedure ButtonErosiClick(Sender: TObject);
     procedure ButtonLoadClick(Sender: TObject);
     procedure ButtonSaveClick(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
   private
-
+    function BoolToByte(value: Boolean): Byte;
   public
 
   end;
@@ -57,7 +58,7 @@ uses
 var
   Bitmap1: array[0..1000, 0..1000] of Channel;
   BinaryBitmap: array[0..1000, 0..1000] of Byte;
-  SE: array[1..3, 1..3] of Integer = ((1, 1, 1), (1, 1, 1), (1, 1, 1));
+  SE: array[1..3, 1..3] of Byte = ((1, 1, 1), (1, 1, 1), (1, 1, 1));
   imageWidth, imageHeight: Integer;
 
 procedure TFormMain.ButtonLoadClick(Sender: TObject);
@@ -87,11 +88,56 @@ begin
   end;
 end;
 
+function TFormMain.BoolToByte(value: Boolean): Byte;
+begin
+  if value then BoolToByte:= 1 else BoolToByte:= 0;
+end;
+
 procedure TFormMain.ButtonErosiClick(Sender: TObject);
 var
   x, y: Integer;
+  xk, yk: Integer;
+  TempBitmap: array[0..1000, 0..1000] of Byte;
+  binary: Boolean;
+  isFirst: Boolean;
+  k: Integer = 3;
 begin
-
+  for y:= 1 to imageHeight do
+  begin
+    for x:= 1 to imageWidth do
+    begin
+      binary:= false;
+      isFirst:= true;
+      for yk:= 1 to k do
+      begin
+        for xk:= 1 to k do
+        begin
+          if BinaryBitmap[x, y] <> 127 then
+          begin
+            if isFirst then
+            begin
+              binary:= (BinaryBitmap[x+(xk-k+1), y+(yk-k+1)] = SE[xk, yk]);
+              isFirst:= false;
+            end
+            else
+              binary:= binary AND (BinaryBitmap[x+(xk-k+1), y+(yk-k+1)] = SE[xk, yk]);
+          end;
+        end;
+      end;
+      TempBitmap[x, y]:= BoolToByte(binary);
+      if binary then
+        ImageResult.Canvas.Pixels[x-1, y-1]:= RGB(255, 255, 255)
+      else
+        ImageResult.Canvas.Pixels[x-1, y-1]:= RGB(0, 0, 0)
+    end;
+  end;
+  for y:= 1 to imageHeight do
+  begin
+    for x:= 1 to imageWidth do
+    begin
+      BinaryBitmap[x, y]:= TempBitmap[x, y];
+    end;
+  end;
 end;
 
 procedure TFormMain.ButtonBinaryClick(Sender: TObject);
@@ -128,6 +174,53 @@ begin
   begin
     BinaryBitmap[x, 0]:= 127;
     BinaryBitmap[x, imageHeight+1]:= 127;
+  end;
+end;
+
+procedure TFormMain.ButtonDilasiClick(Sender: TObject);
+var
+  x, y: Integer;
+  xk, yk: Integer;
+  TempBitmap: array[0..1000, 0..1000] of Byte;
+  binary: Boolean;
+  isFirst: Boolean;
+  k: Integer = 3;
+begin
+  for y:= 1 to imageHeight do
+  begin
+    for x:= 1 to imageWidth do
+    begin
+      binary:= false;
+      isFirst:= true;
+      for yk:= 1 to k do
+      begin
+        for xk:= 1 to k do
+        begin
+          if BinaryBitmap[x, y] <> 127 then
+          begin
+            if isFirst then
+            begin
+              binary:= (BinaryBitmap[x+(xk-k+1), y+(yk-k+1)] = SE[xk, yk]);
+              isFirst:= false;
+            end
+            else
+              binary:= binary OR (BinaryBitmap[x+(xk-k+1), y+(yk-k+1)] = SE[xk, yk]);
+          end;
+        end;
+      end;
+      TempBitmap[x, y]:= BoolToByte(binary);
+      if binary then
+        ImageResult.Canvas.Pixels[x-1, y-1]:= RGB(255, 255, 255)
+      else
+        ImageResult.Canvas.Pixels[x-1, y-1]:= RGB(0, 0, 0)
+    end;
+  end;
+  for y:= 1 to imageHeight do
+  begin
+    for x:= 1 to imageWidth do
+    begin
+      BinaryBitmap[x, y]:= TempBitmap[x, y];
+    end;
   end;
 end;
 
