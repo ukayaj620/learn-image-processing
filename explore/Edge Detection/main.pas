@@ -9,6 +9,9 @@ uses
   ExtDlgs;
 
 type
+  Kernel = array [1..3, 1..3] of Integer;
+
+type
 
   { TForm1 }
 
@@ -18,6 +21,7 @@ type
     ButtonLoadImage: TButton;
     ImageSource: TImage;
     ImageResult: TImage;
+    Label1: TLabel;
     OpenPictureDialog1: TOpenPictureDialog;
     RadioGroupEdge: TRadioGroup;
     SavePictureDialog1: TSavePictureDialog;
@@ -52,6 +56,7 @@ var
 
   kernelX: array[1..3, 1..3] of Integer = ((0, 0, 0), (0, 0, 0), (0, 0, 0));
   kernelY: array[1..3, 1..3] of Integer = ((0, 0, 0), (0, 0, 0), (0, 0, 0));
+  kernelC: array[1..4] of Kernel = (((0, 0, 0), (0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0), (0, 0, 0)), ((0, 0, 0), (0, 0, 0), (0, 0, 0)));
   size: Integer;
 
 procedure TForm1.ButtonLoadImageClick(Sender: TObject);
@@ -87,6 +92,8 @@ var
   x, y, xK, yK: Integer;
   grayX, grayY: Integer;
   k, kHalf: Integer;
+  way, gray: Integer;
+  grayC: array [1..4] of Integer = (0, 0, 0, 0);
 begin
   k:= size;
   kHalf:= size div 2;
@@ -95,23 +102,51 @@ begin
   begin
     for x:= kHalf to (imageWidth+kHalf) do
     begin
-      grayX:= 0;
-      grayY:= 0;
-      for yK:= 1 to k do
+      if RadioGroupEdge.ItemIndex = 3 then
       begin
-        for xK:= 1 to k do
+        for way:= 1 to 4 do
         begin
-          grayX:= grayX + (paddingGray[x-(xK- k + kHalf), y-(yK - k + kHalf)] * kernelX[xK, yK]);
-          grayY:= grayY + (paddingGray[x-(xK- k + kHalf), y-(yK - k + kHalf)] * kernelY[xK, yK]);
+          grayC[way]:= 0;
         end;
-      end;
-      if grayX > grayY then
-      begin
-        bitmapFilter[x-kHalf, y-kHalf]:= Constrain(Round(grayX));
+        for yK:= 1 to k do
+        begin
+          for xK:= 1 to k do
+          begin
+            for way:= 1 to 4 do
+            begin
+              grayC[way]:= grayC[way] + (paddingGray[x-(xK- k + kHalf), y-(yK - k + kHalf)] * kernelC[way, xK, yK]);
+            end;
+          end;
+        end;
+        gray:= 0;
+        for way:= 1 to 4 do
+        begin
+          if grayC[way] >= gray then
+             gray:= grayC[way];
+        end;
+        Label1.Caption:= IntToStr(grayC[2]);
+        bitmapFilter[x-kHalf, y-kHalf]:= Constrain(Round(gray));
       end
       else
       begin
-        bitmapFilter[x-kHalf, y-kHalf]:= Constrain(Round(grayY));
+        grayX:= 0;
+        grayY:= 0;
+        for yK:= 1 to k do
+        begin
+          for xK:= 1 to k do
+          begin
+            grayX:= grayX + (paddingGray[x-(xK- k + kHalf), y-(yK - k + kHalf)] * kernelX[xK, yK]);
+            grayY:= grayY + (paddingGray[x-(xK- k + kHalf), y-(yK - k + kHalf)] * kernelY[xK, yK]);
+          end;
+        end;
+        if grayX > grayY then
+        begin
+          bitmapFilter[x-kHalf, y-kHalf]:= Constrain(Round(grayX));
+        end
+        else
+        begin
+          bitmapFilter[x-kHalf, y-kHalf]:= Constrain(Round(grayY));
+        end;
       end;
     end;
   end;
@@ -149,6 +184,11 @@ var
 
   robertX: array[1..3, 1..3] of Integer = ((1, 0, 0), (0, -1, 0), (0, 0, 0));
   robertY: array[1..3, 1..3] of Integer = ((0, -1, 0), (1, 0, 0), (0, 0, 0));
+
+  cS: Kernel = ((-1, -1, -1), (1, -2, 1), (1, 1, 1));
+  cW: Kernel = ((1, 1, -1), (1, -2, -1), (1, 1, -1));
+  cN: Kernel = ((1, 1, 1), (1, -2, 1), (-1, -1, -1));
+  cE: Kernel = ((-1, 1, 1), (-1, -2, 1), (-1, 1, 1));
 begin
   if RadioGroupEdge.ItemIndex = 0 then
   begin
@@ -167,6 +207,14 @@ begin
     size:= 2;
     kernelX:= robertX;
     kernelY:= robertY;
+  end;
+  if RadioGroupEdge.ItemIndex = 3 then
+  begin
+    size:= 3;
+    kernelC[1]:= cS;
+    kernelC[2]:= cW;
+    kernelC[3]:= cN;
+    kernelC[4]:= cE;
   end;
 end;
 

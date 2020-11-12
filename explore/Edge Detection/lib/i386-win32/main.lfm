@@ -34,7 +34,7 @@ object Form1: TForm1
     AutoSize = True
   end
   object ImageResult: TImage
-    Left = 536
+    Left = 552
     Height = 135
     Top = 200
     Width = 135
@@ -60,18 +60,27 @@ object Form1: TForm1
       'Sobel'
       'Prewitt'
       'Robert'
+      'Compass (4 ways)'
     )
     OnSelectionChanged = RadioGroupEdgeSelectionChanged
     TabOrder = 2
   end
   object ButtonExecute: TButton
-    Left = 536
+    Left = 552
     Height = 38
     Top = 80
     Width = 113
     Caption = 'Execute'
     OnClick = ButtonExecuteClick
     TabOrder = 3
+  end
+  object Label1: TLabel
+    Left = 761
+    Height = 25
+    Top = 69
+    Width = 51
+    Caption = 'Label1'
+    ParentColor = False
   end
   object OpenPictureDialog1: TOpenPictureDialog
     left = 1096
