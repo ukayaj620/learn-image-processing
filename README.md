@@ -1,5 +1,5 @@
 # Learn Digital Image Processing
-My Programs for Bunda Mulia Digital Image Processing
+Bunda Mulia Digital Image Processing Course Programs Example
 
 ```
 Copyright 2020 Jayaku Briliantio
